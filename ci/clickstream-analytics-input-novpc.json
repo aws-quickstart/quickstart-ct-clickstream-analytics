@@ -1,0 +1,46 @@
+[
+  {
+      "ParameterKey": "OperatorEMail",
+      "ParameterValue": "atangirala@ctepl.com"
+  },
+  {
+      "ParameterKey": "AvailabilityZones",
+      "ParameterValue": "$[taskcat_genaz_2]"
+  },
+  {
+      "ParameterKey": "RedshiftColumns",
+      "ParameterValue": ""
+  },
+  {
+      "ParameterKey": "KeyPairName",
+      "ParameterValue": "csa"
+  },
+  {
+      "ParameterKey": "AppKeyPairName",
+      "ParameterValue": "csa"
+  },
+  {
+      "ParameterKey": "RemoteAccessCIDR",
+      "ParameterValue": "0.0.0.0/0"
+  },
+  {
+      "ParameterKey": "VPC",
+      "ParameterValue": "vpc-00a21841fd0341e8f"
+  },
+  {
+      "ParameterKey": "PublicSubnetA",
+      "ParameterValue": "subnet-0ea391e85136222ce"
+  },
+  {
+      "ParameterKey": "PublicSubnetB",
+      "ParameterValue": "subnet-077d827c3d78c4e23"
+  },
+  {
+      "ParameterKey": "PrivateSubnetA",
+      "ParameterValue": "subnet-0548eff2b0fda28b8"
+  },
+  {
+      "ParameterKey": "PrivateSubnetB",
+      "ParameterValue": "subnet-0db8340690978f788"
+  }
+]

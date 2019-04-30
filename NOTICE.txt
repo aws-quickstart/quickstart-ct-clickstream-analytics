@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+Copyright 2016-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+=======
 Copyright 2016-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+>>>>>>> b1d98906fee7d2bb7beb0055dc57b4598c0a81cd
 
 Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
 

@@ -1276,8 +1276,8 @@ Resources:
         Version: '2012-10-17'
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
-        indices.fielddata.cache.size: 100
-        indices.query.bool.max_clause_count: 1024
+        indices.fielddata.cache.size: '100'
+        indices.query.bool.max_clause_count: '1024'
   ElasticSearchDeliveryRole:
     Type: AWS::IAM::Role
     Properties:
@@ -1681,8 +1681,8 @@ Resources:
         - !Ref 'PrivateSubnetA'
         - !Ref 'PrivateSubnetB'
       LaunchConfigurationName: !Ref 'LaunchConfig'
-      MinSize: 2
-      MaxSize: 4
+      MinSize: '2'
+      MaxSize: '4'
       TargetGroupARNs:
         - !Ref TargetGroupPublic
       NotificationConfiguration:
@@ -1852,8 +1852,8 @@ Resources:
         - !Ref 'PrivateSubnetA'
         - !Ref 'PrivateSubnetB'
       LaunchConfigurationName: !Ref 'LaunchConfigisDemos'
-      MinSize: 2
-      MaxSize: 4
+      MinSize: '2'
+      MaxSize: '4'
       TargetGroupARNs:
         - !Ref TargetGroupPublic
       NotificationConfiguration:
@@ -2037,7 +2037,7 @@ Resources:
     Properties:
       AdjustmentType: ChangeInCapacity
       AutoScalingGroupName: !Ref 'AppServerGroup'
-      Cooldown: 60
+      Cooldown: '60'
       ScalingAdjustment: 1
   AppServerScaleDownPolicy:
     Type: AWS::AutoScaling::ScalingPolicy
@@ -2045,7 +2045,7 @@ Resources:
     Properties:
       AdjustmentType: ChangeInCapacity
       AutoScalingGroupName: !Ref 'AppServerGroup'
-      Cooldown: 60
+      Cooldown: '60'
       ScalingAdjustment: -1
   CPUAlarmHigh:
     Type: AWS::CloudWatch::Alarm
@@ -2087,7 +2087,7 @@ Resources:
     Properties:
       AdjustmentType: ChangeInCapacity
       AutoScalingGroupName: !Ref 'AppServerGroupisDemos'
-      Cooldown: 60
+      Cooldown: '60'
       ScalingAdjustment: 1
   AppServerScaleDownPolicyisDemos:
     Type: AWS::AutoScaling::ScalingPolicy
@@ -2095,7 +2095,7 @@ Resources:
     Properties:
       AdjustmentType: ChangeInCapacity
       AutoScalingGroupName: !Ref 'AppServerGroupisDemos'
-      Cooldown: 60
+      Cooldown: '60'
       ScalingAdjustment: -1
   CPUAlarmHighisDemos:
     Type: AWS::CloudWatch::Alarm
@@ -2151,7 +2151,7 @@ Resources:
       Scheme: internet-facing
       LoadBalancerAttributes:
       - Key: idle_timeout.timeout_seconds
-        Value: 30
+        Value: '30'
       Subnets:
         - !Ref PublicSubnetA
         - !Ref PublicSubnetB

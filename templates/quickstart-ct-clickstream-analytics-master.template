@@ -2429,8 +2429,8 @@ Resources:
         KinesisFirehoseOutput:
           ResourceARN: !GetAtt FIrehoseToS3.Arn
           RoleARN: !GetAtt KinesisAnalyticsRole.Arn
-Outputs:
 
+Outputs:
   AppSecurityGroup:
     Value: !Ref AppSecurityGroup
   InstanceProfile:

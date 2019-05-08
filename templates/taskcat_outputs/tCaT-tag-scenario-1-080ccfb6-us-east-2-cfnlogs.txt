@@ -1,0 +1,91 @@
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-tag-scenario-1-080ccfb6
+*****************************************************************************
+ResourceStatusReason:  
+The following resource(s) failed to create: [BastionNotificationTopic,
+PublicLoadBalancerSG, AppRole, TargetGroupPublic, NotificationTopic, BastionStack,
+RedshiftClusterSubnetGroup, esroleforsl, ESDomain, KinesisAnalyticsRole,
+StreamingAnalyticsBucket].
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                              LogicalResourceId              ResourceStatusReason
+--------------------------------  ------------------  ----------------------------------------  -----------------------------  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2019-05-07 09:49:56.791000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack                tCaT-tag-scenario-1-080ccfb6   The following resource(s) failed to create: [BastionNotificationTopic, PublicLoadBalancerSG, AppRole, TargetGroupPublic, NotificationTopic, BastionStack, RedshiftClusterSubnetGroup, esroleforsl, ESDomain, KinesisAnalyticsRole, StreamingAnalyticsBucket].
+2019-05-07 09:49:55.983000+00:00  CREATE_FAILED       AWS::EC2::SecurityGroup                   PublicLoadBalancerSG           Resource creation cancelled
+2019-05-07 09:49:52.868000+00:00  CREATE_FAILED       AWS::IAM::ServiceLinkedRole               esroleforsl                    Resource creation cancelled
+2019-05-07 09:49:52.800000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack                BastionStack                   Resource creation cancelled
+2019-05-07 09:49:52.725000+00:00  CREATE_FAILED       AWS::IAM::Role                            KinesisAnalyticsRole           Resource creation cancelled
+2019-05-07 09:49:52.566000+00:00  CREATE_FAILED       AWS::ElasticLoadBalancingV2::TargetGroup  TargetGroupPublic              Resource creation cancelled
+2019-05-07 09:49:52.563000+00:00  CREATE_FAILED       AWS::IAM::Role                            AppRole                        Resource creation cancelled
+2019-05-07 09:49:52.514000+00:00  CREATE_FAILED       AWS::Redshift::ClusterSubnetGroup         RedshiftClusterSubnetGroup     Resource creation cancelled
+2019-05-07 09:49:52.510000+00:00  CREATE_FAILED       AWS::SNS::Topic                           NotificationTopic              Resource creation cancelled
+2019-05-07 09:49:52.471000+00:00  CREATE_FAILED       AWS::S3::Bucket                           StreamingAnalyticsBucket       Resource creation cancelled
+2019-05-07 09:49:52.469000+00:00  CREATE_FAILED       AWS::SNS::Topic                           BastionNotificationTopic       Resource creation cancelled
+2019-05-07 09:49:52.357000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup  TargetGroupPublic              Resource creation Initiated
+2019-05-07 09:49:52.334000+00:00  CREATE_COMPLETE     AWS::Redshift::ClusterParameterGroup      RedshiftClusterParameterGroup
+2019-05-07 09:49:52.292000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                       S3CloudwatchLogsGroup
+2019-05-07 09:49:52.118000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                       RSCloudwatchLogsGroup
+2019-05-07 09:49:51.994000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::ClusterParameterGroup      RedshiftClusterParameterGroup  Resource creation Initiated
+2019-05-07 09:49:51.958000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                       S3CloudwatchLogsGroup          Resource creation Initiated
+2019-05-07 09:49:51.856000+00:00  CREATE_FAILED       AWS::Elasticsearch::Domain                ESDomain                       AvinashTestAWS already exists in stack arn:aws:cloudformation:us-east-2:551363491627:stack/tCaT-tag-scenario-2-080ccfb6/701aabc0-70ad-11e9-af53-020cf0d94894
+2019-05-07 09:49:51.851000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                            KinesisAnalyticsRole           Resource creation Initiated
+2019-05-07 09:49:51.845000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                       ESCloudwatchLogsGroup
+2019-05-07 09:49:51.808000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                           NotificationTopic              Resource creation Initiated
+2019-05-07 09:49:51.806000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup  TargetGroupPublic
+2019-05-07 09:49:51.800000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::ClusterSubnetGroup         RedshiftClusterSubnetGroup
+2019-05-07 09:49:51.759000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                       RSCloudwatchLogsGroup          Resource creation Initiated
+2019-05-07 09:49:51.756000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                            AppRole                        Resource creation Initiated
+2019-05-07 09:49:51.754000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                           BastionNotificationTopic       Resource creation Initiated
+2019-05-07 09:49:51.645000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::ClusterParameterGroup      RedshiftClusterParameterGroup
+2019-05-07 09:49:51.584000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                       S3CloudwatchLogsGroup
+2019-05-07 09:49:51.576000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                BastionStack
+2019-05-07 09:49:51.541000+00:00  CREATE_IN_PROGRESS  AWS::S3::Bucket                           StreamingAnalyticsBucket       Resource creation Initiated
+2019-05-07 09:49:51.487000+00:00  CREATE_IN_PROGRESS  AWS::Elasticsearch::Domain                ESDomain
+2019-05-07 09:49:51.468000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                           NotificationTopic
+2019-05-07 09:49:51.462000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                       ESCloudwatchLogsGroup          Resource creation Initiated
+2019-05-07 09:49:51.453000+00:00  CREATE_IN_PROGRESS  AWS::IAM::ServiceLinkedRole               esroleforsl
+2019-05-07 09:49:51.397000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                            KinesisAnalyticsRole
+2019-05-07 09:49:51.390000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                       RSCloudwatchLogsGroup
+2019-05-07 09:49:51.293000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                            AppRole
+2019-05-07 09:49:51.290000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                           BastionNotificationTopic
+2019-05-07 09:49:51.259000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                   PublicLoadBalancerSG
+2019-05-07 09:49:51.039000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                       ESCloudwatchLogsGroup
+2019-05-07 09:49:50.826000+00:00  CREATE_IN_PROGRESS  AWS::S3::Bucket                           StreamingAnalyticsBucket
+2019-05-07 09:49:42.010000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                tCaT-tag-scenario-1-080ccfb6   User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 07. May 2019 09:50AM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-tag-scenario-1-080ccfb6-BastionStack-1CCC0PO7SHR46
+*****************************************************************************
+ResourceStatusReason:  
+Stack launch was successful
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                        ResourceStatusReason
+--------------------------------  ------------------  --------------------------  -------------------------------------------------------  ---------------------------
+2019-05-07 09:50:05.476000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup     BastionSecurityGroup
+2019-05-07 09:50:03.879000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup     BastionSecurityGroup                                     Resource creation Initiated
+2019-05-07 09:50:03.005000+00:00  CREATE_COMPLETE     AWS::Logs::MetricFilter     SSHMetricFilter
+2019-05-07 09:50:02.849000+00:00  CREATE_IN_PROGRESS  AWS::Logs::MetricFilter     SSHMetricFilter                                          Resource creation Initiated
+2019-05-07 09:50:02.295000+00:00  CREATE_IN_PROGRESS  AWS::Logs::MetricFilter     SSHMetricFilter
+2019-05-07 09:49:59.556000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role              BastionHostRole                                          Resource creation Initiated
+2019-05-07 09:49:59.366000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP               EIP1                                                     Resource creation Initiated
+2019-05-07 09:49:59.164000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role              BastionHostRole
+2019-05-07 09:49:59.056000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup     BastionSecurityGroup
+2019-05-07 09:49:58.743000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP               EIP1
+2019-05-07 09:49:58.498000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup         BastionMainLogGroup
+2019-05-07 09:49:58.316000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup         BastionMainLogGroup                                      Resource creation Initiated
+2019-05-07 09:49:57.909000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup         BastionMainLogGroup
+2019-05-07 09:49:52.520000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-tag-scenario-1-080ccfb6-BastionStack-1CCC0PO7SHR46  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 07. May 2019 09:50AM
+-----------------------------------------------------------------------------
+

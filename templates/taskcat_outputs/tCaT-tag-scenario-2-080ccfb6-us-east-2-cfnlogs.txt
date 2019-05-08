@@ -1,0 +1,76 @@
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-tag-scenario-2-080ccfb6
+*****************************************************************************
+ResourceStatusReason:  
+The following resource(s) failed to create: [BastionNotificationTopic, AppRole,
+NotificationTopic, esroleforsl, VPCStack, ESDomain, KinesisAnalyticsRole,
+StreamingAnalyticsBucket].
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                          LogicalResourceId              ResourceStatusReason
+--------------------------------  ------------------  ------------------------------------  -----------------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2019-05-07 09:50:02.550000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack            tCaT-tag-scenario-2-080ccfb6   The following resource(s) failed to create: [BastionNotificationTopic, AppRole, NotificationTopic, esroleforsl, VPCStack, ESDomain, KinesisAnalyticsRole, StreamingAnalyticsBucket].
+2019-05-07 09:50:00.910000+00:00  CREATE_FAILED       AWS::IAM::ServiceLinkedRole           esroleforsl                    Resource creation cancelled
+2019-05-07 09:49:52.586000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack            VPCStack                       Resource creation cancelled
+2019-05-07 09:49:52.584000+00:00  CREATE_FAILED       AWS::SNS::Topic                       BastionNotificationTopic       Resource creation cancelled
+2019-05-07 09:49:52.576000+00:00  CREATE_FAILED       AWS::SNS::Topic                       NotificationTopic              Resource creation cancelled
+2019-05-07 09:49:52.551000+00:00  CREATE_FAILED       AWS::S3::Bucket                       StreamingAnalyticsBucket       Resource creation cancelled
+2019-05-07 09:49:52.511000+00:00  CREATE_FAILED       AWS::IAM::Role                        KinesisAnalyticsRole           Resource creation cancelled
+2019-05-07 09:49:52.506000+00:00  CREATE_FAILED       AWS::IAM::Role                        AppRole                        Resource creation cancelled
+2019-05-07 09:49:52.239000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                       NotificationTopic              Resource creation Initiated
+2019-05-07 09:49:51.992000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                   ESCloudwatchLogsGroup
+2019-05-07 09:49:51.796000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                       NotificationTopic
+2019-05-07 09:49:51.771000+00:00  CREATE_FAILED       AWS::Elasticsearch::Domain            ESDomain                       1 validation error detected: Value 'AvinashTestAWS' at 'domainName' failed to satisfy constraint: Member must satisfy regular expression pattern: [a-z][a-z0-9\-]+ (Service: AWSElasticsearch; Status Code: 400; Error Code: ValidationException; Request ID: 75a017da-70ad-11e9-9d1a-ab014c2eb55e)
+2019-05-07 09:49:51.660000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                   ESCloudwatchLogsGroup          Resource creation Initiated
+2019-05-07 09:49:51.454000+00:00  CREATE_COMPLETE     AWS::Redshift::ClusterParameterGroup  RedshiftClusterParameterGroup
+2019-05-07 09:49:51.330000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                   RSCloudwatchLogsGroup
+2019-05-07 09:49:51.311000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                   ESCloudwatchLogsGroup
+2019-05-07 09:49:51.225000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                   S3CloudwatchLogsGroup
+2019-05-07 09:49:51.168000+00:00  CREATE_IN_PROGRESS  AWS::Elasticsearch::Domain            ESDomain
+2019-05-07 09:49:51.164000+00:00  CREATE_IN_PROGRESS  AWS::S3::Bucket                       StreamingAnalyticsBucket       Resource creation Initiated
+2019-05-07 09:49:51.155000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack            VPCStack
+2019-05-07 09:49:51.079000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::ClusterParameterGroup  RedshiftClusterParameterGroup  Resource creation Initiated
+2019-05-07 09:49:50.987000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                   RSCloudwatchLogsGroup          Resource creation Initiated
+2019-05-07 09:49:50.918000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                        KinesisAnalyticsRole           Resource creation Initiated
+2019-05-07 09:49:50.857000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                   S3CloudwatchLogsGroup          Resource creation Initiated
+2019-05-07 09:49:50.837000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                        AppRole                        Resource creation Initiated
+2019-05-07 09:49:50.739000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                       BastionNotificationTopic       Resource creation Initiated
+2019-05-07 09:49:50.653000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::ClusterParameterGroup  RedshiftClusterParameterGroup
+2019-05-07 09:49:50.630000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                   RSCloudwatchLogsGroup
+2019-05-07 09:49:50.590000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                        KinesisAnalyticsRole
+2019-05-07 09:49:50.529000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                   S3CloudwatchLogsGroup
+2019-05-07 09:49:50.515000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                        AppRole
+2019-05-07 09:49:50.476000+00:00  CREATE_IN_PROGRESS  AWS::IAM::ServiceLinkedRole           esroleforsl
+2019-05-07 09:49:50.332000+00:00  CREATE_IN_PROGRESS  AWS::S3::Bucket                       StreamingAnalyticsBucket
+2019-05-07 09:49:50.327000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                       BastionNotificationTopic
+2019-05-07 09:49:42.558000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack            tCaT-tag-scenario-2-080ccfb6   User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 07. May 2019 09:50AM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-tag-scenario-2-080ccfb6-VPCStack-1SAMDT0TYYH9V
+*****************************************************************************
+ResourceStatusReason:  
+Resource creation Initiated
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                    ResourceStatusReason
+--------------------------------  ------------------  --------------------------  ---------------------------------------------------  ---------------------------
+2019-05-07 09:49:59.227000+00:00  CREATE_IN_PROGRESS  AWS::EC2::InternetGateway   InternetGateway                                      Resource creation Initiated
+2019-05-07 09:49:58.994000+00:00  CREATE_IN_PROGRESS  AWS::EC2::DHCPOptions       DHCPOptions                                          Resource creation Initiated
+2019-05-07 09:49:58.681000+00:00  CREATE_IN_PROGRESS  AWS::EC2::InternetGateway   InternetGateway
+2019-05-07 09:49:58.571000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPC               VPC                                                  Resource creation Initiated
+2019-05-07 09:49:58.563000+00:00  CREATE_IN_PROGRESS  AWS::EC2::DHCPOptions       DHCPOptions
+2019-05-07 09:49:58.153000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPC               VPC
+2019-05-07 09:49:52.292000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-tag-scenario-2-080ccfb6-VPCStack-1SAMDT0TYYH9V  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 07. May 2019 09:50AM
+-----------------------------------------------------------------------------
+

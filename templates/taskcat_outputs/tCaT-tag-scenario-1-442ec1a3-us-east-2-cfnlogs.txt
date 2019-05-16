@@ -1,0 +1,201 @@
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-tag-scenario-1-442ec1a3
+*****************************************************************************
+ResourceStatusReason:  
+Stack launch was successful
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                               LogicalResourceId                ResourceStatusReason
+--------------------------------  ------------------  -----------------------------------------  -------------------------------  ---------------------------------------------------------
+2019-05-07 08:28:07.352000+00:00  CREATE_COMPLETE     AWS::CloudFormation::Stack                 tCaT-tag-scenario-1-442ec1a3
+2019-05-07 08:28:03.647000+00:00  CREATE_COMPLETE     AWS::CloudWatch::Alarm                     CPUAlarmHighisDemos
+2019-05-07 08:28:03.592000+00:00  CREATE_COMPLETE     AWS::CloudWatch::Alarm                     CPUAlarmLowisDemos
+2019-05-07 08:28:03.454000+00:00  CREATE_IN_PROGRESS  AWS::CloudWatch::Alarm                     CPUAlarmHighisDemos              Resource creation Initiated
+2019-05-07 08:28:03.449000+00:00  CREATE_IN_PROGRESS  AWS::CloudWatch::Alarm                     CPUAlarmLowisDemos               Resource creation Initiated
+2019-05-07 08:28:02.944000+00:00  CREATE_IN_PROGRESS  AWS::CloudWatch::Alarm                     CPUAlarmHighisDemos
+2019-05-07 08:28:02.833000+00:00  CREATE_IN_PROGRESS  AWS::CloudWatch::Alarm                     CPUAlarmLowisDemos
+2019-05-07 08:27:58.615000+00:00  CREATE_COMPLETE     AWS::AutoScaling::ScalingPolicy            AppServerScaleDownPolicyisDemos
+2019-05-07 08:27:58.442000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::ScalingPolicy            AppServerScaleDownPolicyisDemos  Resource creation Initiated
+2019-05-07 08:27:58.279000+00:00  CREATE_COMPLETE     AWS::AutoScaling::ScalingPolicy            AppServerScaleUpPolicyisDemos
+2019-05-07 08:27:58.106000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::ScalingPolicy            AppServerScaleUpPolicyisDemos    Resource creation Initiated
+2019-05-07 08:27:58.043000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::ScalingPolicy            AppServerScaleDownPolicyisDemos
+2019-05-07 08:27:57.733000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::ScalingPolicy            AppServerScaleUpPolicyisDemos
+2019-05-07 08:27:53.661000+00:00  CREATE_COMPLETE     AWS::AutoScaling::AutoScalingGroup         AppServerGroupisDemos
+2019-05-07 08:27:52.531000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::AutoScalingGroup         AppServerGroupisDemos            Received SUCCESS signal with UniqueId i-06ce27c3e5c47dc85
+2019-05-07 08:27:52.531000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::AutoScalingGroup         AppServerGroupisDemos            Received SUCCESS signal with UniqueId i-02fe6ff473706feee
+2019-05-07 08:22:30.848000+00:00  CREATE_COMPLETE     AWS::KinesisAnalytics::ApplicationOutput   SecondBasicApplicationOutputs
+2019-05-07 08:22:29.676000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::ApplicationOutput   SecondBasicApplicationOutputs    Resource creation Initiated
+2019-05-07 08:22:27.718000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::AutoScalingGroup         AppServerGroupisDemos            Resource creation Initiated
+2019-05-07 08:22:26.998000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::ApplicationOutput   SecondBasicApplicationOutputs
+2019-05-07 08:22:26.756000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::AutoScalingGroup         AppServerGroupisDemos
+2019-05-07 08:22:22.378000+00:00  CREATE_COMPLETE     AWS::KinesisAnalytics::Application         BasicApplication2
+2019-05-07 08:22:22.205000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::Application         BasicApplication2                Resource creation Initiated
+2019-05-07 08:22:21.117000+00:00  CREATE_COMPLETE     AWS::AutoScaling::LaunchConfiguration      LaunchConfigisDemos
+2019-05-07 08:22:20.937000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::LaunchConfiguration      LaunchConfigisDemos              Resource creation Initiated
+2019-05-07 08:22:20.417000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::LaunchConfiguration      LaunchConfigisDemos
+2019-05-07 08:22:20.185000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::Application         BasicApplication2
+2019-05-07 08:22:15.689000+00:00  CREATE_COMPLETE     AWS::KinesisFirehose::DeliveryStream       FIrehoseToRedshift
+2019-05-07 08:21:14.731000+00:00  CREATE_IN_PROGRESS  AWS::KinesisFirehose::DeliveryStream       FIrehoseToRedshift               Resource creation Initiated
+2019-05-07 08:21:14.219000+00:00  CREATE_IN_PROGRESS  AWS::KinesisFirehose::DeliveryStream       FIrehoseToRedshift
+2019-05-07 08:21:09.596000+00:00  CREATE_COMPLETE     AWS::Redshift::Cluster                     RedshiftCluster
+2019-05-07 08:21:09.321000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::Cluster                     RedshiftCluster                  Resource creation Initiated
+2019-05-07 08:20:56.324000+00:00  CREATE_COMPLETE     AWS::KinesisAnalytics::ApplicationOutput   BasicApplicationOutputs
+2019-05-07 08:20:54.510000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::ApplicationOutput   BasicApplicationOutputs          Resource creation Initiated
+2019-05-07 08:20:52.223000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::ApplicationOutput   BasicApplicationOutputs
+2019-05-07 08:20:47.248000+00:00  CREATE_COMPLETE     AWS::KinesisAnalytics::Application         BasicApplication1
+2019-05-07 08:20:47.039000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::Application         BasicApplication1                Resource creation Initiated
+2019-05-07 08:20:44.478000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::Application         BasicApplication1
+2019-05-07 08:20:39.441000+00:00  CREATE_COMPLETE     AWS::KinesisFirehose::DeliveryStream       FIrehoseToElasticsearch
+2019-05-07 08:19:38.633000+00:00  CREATE_IN_PROGRESS  AWS::KinesisFirehose::DeliveryStream       FIrehoseToElasticsearch          Resource creation Initiated
+2019-05-07 08:19:34.914000+00:00  CREATE_IN_PROGRESS  AWS::KinesisFirehose::DeliveryStream       FIrehoseToElasticsearch
+2019-05-07 08:19:30.580000+00:00  CREATE_COMPLETE     AWS::IAM::Role                             ElasticSearchDeliveryRole
+2019-05-07 08:19:14.547000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             ElasticSearchDeliveryRole        Resource creation Initiated
+2019-05-07 08:19:14.164000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             ElasticSearchDeliveryRole
+2019-05-07 08:19:09.844000+00:00  CREATE_COMPLETE     AWS::Elasticsearch::Domain                 ESDomain
+2019-05-07 08:17:35.726000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::Cluster                     RedshiftCluster
+2019-05-07 08:17:30.957000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup                    RSDefaultSG
+2019-05-07 08:17:29.724000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    RSDefaultSG                      Resource creation Initiated
+2019-05-07 08:17:25.006000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    RSDefaultSG
+2019-05-07 08:17:20.436000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup                    AppSecurityGroup
+2019-05-07 08:17:19.150000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    AppSecurityGroup                 Resource creation Initiated
+2019-05-07 08:17:14.241000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    AppSecurityGroup
+2019-05-07 08:17:10.231000+00:00  CREATE_COMPLETE     AWS::CloudFormation::Stack                 BastionStack
+2019-05-07 08:15:29.126000+00:00  CREATE_COMPLETE     AWS::IAM::InstanceProfile                  AppInstanceProfile
+2019-05-07 08:15:22.228000+00:00  CREATE_COMPLETE     AWS::ElasticLoadBalancingV2::Listener      PublicLoadBalancerListener
+2019-05-07 08:15:21.893000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::Listener      PublicLoadBalancerListener       Resource creation Initiated
+2019-05-07 08:15:21.463000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::Listener      PublicLoadBalancerListener
+2019-05-07 08:15:17.147000+00:00  CREATE_COMPLETE     AWS::ElasticLoadBalancingV2::LoadBalancer  PublicLoadBalancer
+2019-05-07 08:15:00.630000+00:00  CREATE_COMPLETE     AWS::KinesisAnalytics::ApplicationOutput   ThirdBasicApplicationOutputs
+2019-05-07 08:14:59.720000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::ApplicationOutput   ThirdBasicApplicationOutputs     Resource creation Initiated
+2019-05-07 08:14:57.584000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::ApplicationOutput   ThirdBasicApplicationOutputs
+2019-05-07 08:14:53.321000+00:00  CREATE_COMPLETE     AWS::KinesisAnalytics::Application         BasicApplication3
+2019-05-07 08:14:53.142000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::Application         BasicApplication3                Resource creation Initiated
+2019-05-07 08:14:51.090000+00:00  CREATE_IN_PROGRESS  AWS::KinesisAnalytics::Application         BasicApplication3
+2019-05-07 08:14:47.202000+00:00  CREATE_COMPLETE     AWS::KinesisFirehose::DeliveryStream       FIrehoseToS3
+2019-05-07 08:13:48.851000+00:00  CREATE_COMPLETE     AWS::IAM::Role                             RedshiftDeliveryRole
+2019-05-07 08:13:46.387000+00:00  CREATE_IN_PROGRESS  AWS::KinesisFirehose::DeliveryStream       FIrehoseToS3                     Resource creation Initiated
+2019-05-07 08:13:45.911000+00:00  CREATE_IN_PROGRESS  AWS::KinesisFirehose::DeliveryStream       FIrehoseToS3
+2019-05-07 08:13:41.556000+00:00  CREATE_COMPLETE     AWS::IAM::Role                             FIrehoseToS3Role
+2019-05-07 08:13:37.253000+00:00  CREATE_COMPLETE     AWS::IAM::Policy                           AppPolicy
+2019-05-07 08:13:31.873000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             FIrehoseToS3Role                 Resource creation Initiated
+2019-05-07 08:13:31.372000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             FIrehoseToS3Role
+2019-05-07 08:13:31.306000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             RedshiftDeliveryRole             Resource creation Initiated
+2019-05-07 08:13:30.920000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             RedshiftDeliveryRole
+2019-05-07 08:13:29.036000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Policy                           AppPolicy                        Resource creation Initiated
+2019-05-07 08:13:28.636000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile                  AppInstanceProfile               Resource creation Initiated
+2019-05-07 08:13:28.254000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Policy                           AppPolicy
+2019-05-07 08:13:28.179000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile                  AppInstanceProfile
+2019-05-07 08:13:26.766000+00:00  CREATE_COMPLETE     AWS::S3::Bucket                            StreamingAnalyticsBucket
+2019-05-07 08:13:23.949000+00:00  CREATE_COMPLETE     AWS::IAM::Role                             AppRole
+2019-05-07 08:13:23.714000+00:00  CREATE_COMPLETE     AWS::IAM::Role                             KinesisAnalyticsRole
+2019-05-07 08:13:23.083000+00:00  CREATE_COMPLETE     AWS::SNS::TopicPolicy                      BastionNotificationTopicPolicy
+2019-05-07 08:13:22.903000+00:00  CREATE_IN_PROGRESS  AWS::SNS::TopicPolicy                      BastionNotificationTopicPolicy   Resource creation Initiated
+2019-05-07 08:13:22.528000+00:00  CREATE_COMPLETE     AWS::SNS::TopicPolicy                      NotificationTopicPolicy
+2019-05-07 08:13:22.322000+00:00  CREATE_IN_PROGRESS  AWS::SNS::TopicPolicy                      NotificationTopicPolicy          Resource creation Initiated
+2019-05-07 08:13:22+00:00         CREATE_IN_PROGRESS  AWS::SNS::TopicPolicy                      BastionNotificationTopicPolicy
+2019-05-07 08:13:21.814000+00:00  CREATE_COMPLETE     AWS::Logs::LogStream                       RSLogStream
+2019-05-07 08:13:21.450000+00:00  CREATE_IN_PROGRESS  AWS::SNS::TopicPolicy                      NotificationTopicPolicy
+2019-05-07 08:13:21.144000+00:00  CREATE_COMPLETE     AWS::Logs::LogStream                       ESLogStream
+2019-05-07 08:13:21.072000+00:00  CREATE_COMPLETE     AWS::Logs::LogStream                       S3LogStream
+2019-05-07 08:13:17.529000+00:00  CREATE_COMPLETE     AWS::SNS::Topic                            BastionNotificationTopic
+2019-05-07 08:13:17.008000+00:00  CREATE_COMPLETE     AWS::SNS::Topic                            NotificationTopic
+2019-05-07 08:13:16.757000+00:00  CREATE_COMPLETE     AWS::IAM::ServiceLinkedRole                esroleforsl
+2019-05-07 08:13:16.457000+00:00  CREATE_IN_PROGRESS  AWS::IAM::ServiceLinkedRole                esroleforsl                      Resource creation Initiated
+2019-05-07 08:13:15.441000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::LoadBalancer  PublicLoadBalancer               Resource creation Initiated
+2019-05-07 08:13:14.517000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::LoadBalancer  PublicLoadBalancer
+2019-05-07 08:13:11.566000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogStream                       RSLogStream                      Resource creation Initiated
+2019-05-07 08:13:11.019000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogStream                       RSLogStream
+2019-05-07 08:13:10.909000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogStream                       ESLogStream                      Resource creation Initiated
+2019-05-07 08:13:10.855000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogStream                       S3LogStream                      Resource creation Initiated
+2019-05-07 08:13:10.742000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup                    PublicLoadBalancerSG
+2019-05-07 08:13:10.280000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogStream                       ESLogStream
+2019-05-07 08:13:10.207000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogStream                       S3LogStream
+2019-05-07 08:13:09.618000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    PublicLoadBalancerSG             Resource creation Initiated
+2019-05-07 08:13:07.200000+00:00  CREATE_IN_PROGRESS  AWS::Elasticsearch::Domain                 ESDomain                         Resource creation Initiated
+2019-05-07 08:13:06.683000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                        RSCloudwatchLogsGroup
+2019-05-07 08:13:06.657000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             AppRole                          Resource creation Initiated
+2019-05-07 08:13:06.609000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                        S3CloudwatchLogsGroup
+2019-05-07 08:13:06.492000+00:00  CREATE_IN_PROGRESS  AWS::IAM::ServiceLinkedRole                esroleforsl
+2019-05-07 08:13:06.371000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                        RSCloudwatchLogsGroup            Resource creation Initiated
+2019-05-07 08:13:06.244000+00:00  CREATE_COMPLETE     AWS::Redshift::ClusterParameterGroup       RedshiftClusterParameterGroup
+2019-05-07 08:13:06.226000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                 BastionStack                     Resource creation Initiated
+2019-05-07 08:13:06.219000+00:00  CREATE_COMPLETE     AWS::ElasticLoadBalancingV2::TargetGroup   TargetGroupPublic
+2019-05-07 08:13:06.206000+00:00  CREATE_COMPLETE     AWS::Redshift::ClusterSubnetGroup          RedshiftClusterSubnetGroup
+2019-05-07 08:13:06.204000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             AppRole
+2019-05-07 08:13:06.169000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                        S3CloudwatchLogsGroup            Resource creation Initiated
+2019-05-07 08:13:06.037000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                        RSCloudwatchLogsGroup
+2019-05-07 08:13:06.020000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::ClusterSubnetGroup          RedshiftClusterSubnetGroup       Resource creation Initiated
+2019-05-07 08:13:06+00:00         CREATE_IN_PROGRESS  AWS::SNS::Topic                            BastionNotificationTopic         Resource creation Initiated
+2019-05-07 08:13:05.933000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                            NotificationTopic                Resource creation Initiated
+2019-05-07 08:13:05.899000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::ClusterParameterGroup       RedshiftClusterParameterGroup    Resource creation Initiated
+2019-05-07 08:13:05.868000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                        S3CloudwatchLogsGroup
+2019-05-07 08:13:05.853000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup   TargetGroupPublic                Resource creation Initiated
+2019-05-07 08:13:05.761000+00:00  CREATE_IN_PROGRESS  AWS::S3::Bucket                            StreamingAnalyticsBucket         Resource creation Initiated
+2019-05-07 08:13:05.734000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                        ESCloudwatchLogsGroup
+2019-05-07 08:13:05.663000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             KinesisAnalyticsRole             Resource creation Initiated
+2019-05-07 08:13:05.599000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                            BastionNotificationTopic
+2019-05-07 08:13:05.495000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::ClusterParameterGroup       RedshiftClusterParameterGroup
+2019-05-07 08:13:05.482000+00:00  CREATE_IN_PROGRESS  AWS::SNS::Topic                            NotificationTopic
+2019-05-07 08:13:05.462000+00:00  CREATE_IN_PROGRESS  AWS::Elasticsearch::Domain                 ESDomain
+2019-05-07 08:13:05.387000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                        ESCloudwatchLogsGroup            Resource creation Initiated
+2019-05-07 08:13:05.342000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup   TargetGroupPublic
+2019-05-07 08:13:05.288000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             KinesisAnalyticsRole
+2019-05-07 08:13:05.194000+00:00  CREATE_IN_PROGRESS  AWS::Redshift::ClusterSubnetGroup          RedshiftClusterSubnetGroup
+2019-05-07 08:13:05.150000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                 BastionStack
+2019-05-07 08:13:05.080000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                        ESCloudwatchLogsGroup
+2019-05-07 08:13:05.057000+00:00  CREATE_IN_PROGRESS  AWS::S3::Bucket                            StreamingAnalyticsBucket
+2019-05-07 08:13:04.851000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    PublicLoadBalancerSG
+2019-05-07 08:12:56.370000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                 tCaT-tag-scenario-1-442ec1a3     User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 07. May 2019 08:32AM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-tag-scenario-1-442ec1a3-BastionStack-VVP6QA5PKNYN
+*****************************************************************************
+ResourceStatusReason:  
+Stack launch was successful
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                           LogicalResourceId                                       ResourceStatusReason
+--------------------------------  ------------------  -------------------------------------  ------------------------------------------------------  ---------------------------------------------------------
+2019-05-07 08:16:55.807000+00:00  CREATE_COMPLETE     AWS::CloudFormation::Stack             tCaT-tag-scenario-1-442ec1a3-BastionStack-VVP6QA5PKNYN
+2019-05-07 08:16:52.468000+00:00  CREATE_COMPLETE     AWS::AutoScaling::AutoScalingGroup     BastionAutoScalingGroup
+2019-05-07 08:16:51.130000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::AutoScalingGroup     BastionAutoScalingGroup                                 Received SUCCESS signal with UniqueId i-0293d22b0c840003c
+2019-05-07 08:15:48.585000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::AutoScalingGroup     BastionAutoScalingGroup                                 Resource creation Initiated
+2019-05-07 08:15:47.701000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::AutoScalingGroup     BastionAutoScalingGroup
+2019-05-07 08:15:44.025000+00:00  CREATE_COMPLETE     AWS::AutoScaling::LaunchConfiguration  BastionLaunchConfiguration
+2019-05-07 08:15:43.834000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::LaunchConfiguration  BastionLaunchConfiguration                              Resource creation Initiated
+2019-05-07 08:15:43.274000+00:00  CREATE_IN_PROGRESS  AWS::AutoScaling::LaunchConfiguration  BastionLaunchConfiguration
+2019-05-07 08:15:38.825000+00:00  CREATE_COMPLETE     AWS::IAM::InstanceProfile              BastionHostProfile
+2019-05-07 08:13:38.411000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile              BastionHostProfile                                      Resource creation Initiated
+2019-05-07 08:13:38.053000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile              BastionHostProfile
+2019-05-07 08:13:34.374000+00:00  CREATE_COMPLETE     AWS::IAM::Policy                       BastionHostPolicy
+2019-05-07 08:13:28.101000+00:00  CREATE_COMPLETE     AWS::EC2::EIP                          EIP1
+2019-05-07 08:13:26.146000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Policy                       BastionHostPolicy                                       Resource creation Initiated
+2019-05-07 08:13:25.241000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Policy                       BastionHostPolicy
+2019-05-07 08:13:21.631000+00:00  CREATE_COMPLETE     AWS::IAM::Role                         BastionHostRole
+2019-05-07 08:13:17.665000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup                BastionSecurityGroup
+2019-05-07 08:13:16.542000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                BastionSecurityGroup                                    Resource creation Initiated
+2019-05-07 08:13:15.596000+00:00  CREATE_COMPLETE     AWS::Logs::MetricFilter                SSHMetricFilter
+2019-05-07 08:13:15.379000+00:00  CREATE_IN_PROGRESS  AWS::Logs::MetricFilter                SSHMetricFilter                                         Resource creation Initiated
+2019-05-07 08:13:15.004000+00:00  CREATE_IN_PROGRESS  AWS::Logs::MetricFilter                SSHMetricFilter
+2019-05-07 08:13:12.583000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP                          EIP1                                                    Resource creation Initiated
+2019-05-07 08:13:12.467000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                         BastionHostRole                                         Resource creation Initiated
+2019-05-07 08:13:12.071000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP                          EIP1
+2019-05-07 08:13:11.980000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                         BastionHostRole
+2019-05-07 08:13:11.764000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                BastionSecurityGroup
+2019-05-07 08:13:11.213000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup                    BastionMainLogGroup
+2019-05-07 08:13:11.083000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                    BastionMainLogGroup                                     Resource creation Initiated
+2019-05-07 08:13:10.791000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup                    BastionMainLogGroup
+2019-05-07 08:13:06.001000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack             tCaT-tag-scenario-1-442ec1a3-BastionStack-VVP6QA5PKNYN  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 07. May 2019 08:32AM
+-----------------------------------------------------------------------------
+

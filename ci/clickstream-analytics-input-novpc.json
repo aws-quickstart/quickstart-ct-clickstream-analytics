@@ -1,7 +1,7 @@
 [
   {
       "ParameterKey": "OperatorEMail",
-      "ParameterValue": "atangirala@ctepl.com"
+      "ParameterValue": "user@example.com"
   },
   {
       "ParameterKey": "AvailabilityZones",
@@ -13,11 +13,11 @@
   },
   {
       "ParameterKey": "KeyPairName",
-      "ParameterValue": "csa"
+      "ParameterValue": "your-key-pair"
   },
   {
       "ParameterKey": "AppKeyPairName",
-      "ParameterValue": "csa"
+      "ParameterValue": "your-key-pair"
   },
   {
       "ParameterKey": "RemoteAccessCIDR",
@@ -25,22 +25,26 @@
   },
   {
       "ParameterKey": "VPC",
-      "ParameterValue": "vpc-00a21841fd0341e8f"
+      "ParameterValue": "your-VPC-id"
   },
   {
       "ParameterKey": "PublicSubnetA",
-      "ParameterValue": "subnet-0ea391e85136222ce"
+      "ParameterValue": "your-subnet-id"
   },
   {
       "ParameterKey": "PublicSubnetB",
-      "ParameterValue": "subnet-077d827c3d78c4e23"
+      "ParameterValue": "your-subnet-id"
   },
   {
       "ParameterKey": "PrivateSubnetA",
-      "ParameterValue": "subnet-0548eff2b0fda28b8"
+      "ParameterValue": "your-subnet-id"
   },
   {
       "ParameterKey": "PrivateSubnetB",
-      "ParameterValue": "subnet-0db8340690978f788"
+      "ParameterValue": "your-subnet-id"
+  },
+  {
+    "ParameterKey": "QSS3BucketName",
+    "ParameterValue": "$[taskcat_autobucket]"
   }
 ]

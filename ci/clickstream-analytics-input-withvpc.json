@@ -1,7 +1,7 @@
 [
   {
       "ParameterKey": "OperatorEMail",
-      "ParameterValue": "atangirala@ctepl.com"
+      "ParameterValue": "user@example.com"
   },
   {
       "ParameterKey": "AvailabilityZones",
@@ -13,14 +13,18 @@
   },
   {
       "ParameterKey": "KeyPairName",
-      "ParameterValue": "csa"
+      "ParameterValue": "your-key-pair"
   },
   {
       "ParameterKey": "AppKeyPairName",
-      "ParameterValue": "csa"
+      "ParameterValue": "your-key-pair"
   },
   {
       "ParameterKey": "RemoteAccessCIDR",
       "ParameterValue": "0.0.0.0/0"
+  },
+  {
+    "ParameterKey": "QSS3BucketName",
+    "ParameterValue": "$[taskcat_autobucket]"
   }
 ]

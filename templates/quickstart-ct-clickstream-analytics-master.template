@@ -1,7 +1,7 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
 Description: >-
-  Template creates new VPC and enables you to deploy a Clickstream Analytics Solution that Integrates Amazon Kinesis Firehose, Kinesis Analytics, S3, Redshift and Amazon Elasticsearch. You will be billed for the AWS resources used if you create a stack from this template.
+  Template creates a new VPC and enables you to deploy a Clickstream Analytics Solution that Integrates Amazon Kinesis Firehose, Kinesis Analytics, S3, Redshift and Amazon Elasticsearch. You will be billed for the AWS resources used if you create a stack from this template.
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
@@ -333,7 +333,7 @@ Parameters:
     ConstraintDescription: Quick Start key prefix can include numbers, lowercase letters,
       uppercase letters, hyphens (-), and forward slash (/). It cannot start or end
       with forward slash (/) because they are automatically appended.
-    Default: quickstart-examples/
+    Default: quickstart-ct-clickstream-analytics/
     Description: S3 key prefix used to simulate a folder for your copy of Quick Start
       assets, if you decide to customize or extend the Quick Start for your own use.
       This prefix can include numbers, lowercase letters, uppercase letters, hyphens,
@@ -659,12 +659,12 @@ Parameters:
     Type: String
     Default: '5439'
   isDemo:
-    Description: Set to NO if you do not want to ingest demo data into redshift.
+    Description: Set to YES if you want to ingest demo data into redshift.
     Type: String
     AllowedValues:
       - 'yes'
       - 'no'
-    Default: 'yes'
+    Default: 'no'
 Mappings:
   InstanceType2Arch:
     t1.micro:

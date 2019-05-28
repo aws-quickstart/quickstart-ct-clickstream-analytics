@@ -12,12 +12,9 @@ tests:
       - us-west-2
     template_file: quickstart-ct-clickstream-analytics.template
     parameter_input: clickstream-analytics-input-novpc.json
+  # The following test will test in us-west-2 using clickstream-analytics-input-withvpc.json as inputs
   scenario-2:
     regions:
       - us-west-2
     template_file: quickstart-ct-clickstream-analytics-master.template
     parameter_input: clickstream-analytics-input-withvpc.json
-  # The following test will test in both all us-west-2 region defined in the global region section using clickstream-analytics-input-withvpc.json as inputs
-      #scenario-all-regions:
-    #parameter_input: clickstream-analytics-input-withvpc.json
-    #template_file: quickstart-ct-clickstream-analytics-master.template

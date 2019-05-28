@@ -37,6 +37,7 @@ Metadata:
       - Label:
           default: Amazon elasticsearch configuration
         Parameters:
+          - ESDomainName
           - ESVersion
           - ESClusterInstanceCount
           - ESInstanceType
@@ -160,6 +161,8 @@ Metadata:
         default: Index name
       ESType:
         default: Type name
+      ESDomainName:
+        default: Elasticsearch domain name
       ESVersion:
         default: Amazon ES version
       ESIndexRotation:
@@ -177,7 +180,7 @@ Metadata:
 Parameters:
   ESClusterInstanceCount:
     Type: String
-    Description: Number of data nodes for cluster. Select even number of data nodes if Zone awareness is enabled
+    Description: For two availability zones, you must choose instances in multiples of two
     Default: 1
   ESInstanceType:
     Type: String
@@ -261,7 +264,7 @@ Parameters:
     Default: m4.large.elasticsearch
   DedicatedMasterCount:
     Type: String
-    Description: Number of dedicated masters to run. Leave this field to default if DedicatedMasterForCluster parameter is set to true
+    Description: Number of dedicated masters to run. Leave this field to default for not to have a dedicated master instances
     AllowedValues:
       - 0
       - 3
@@ -552,6 +555,9 @@ Parameters:
       - 'yes'
       - 'no'
     Default: 'no'
+  ESDomainName:
+    Description: User defined elasticsearch domain name
+    Type: String
   ESVersion:
     Description: User defined elasticsearch version
     Type: String
@@ -1329,6 +1335,7 @@ Resources:
   ESDomain:
     Type: AWS::Elasticsearch::Domain
     Properties:
+      DomainName: !Ref 'ESDomainName'
       ElasticsearchVersion: !Ref ESVersion
       ElasticsearchClusterConfig:      
         DedicatedMasterEnabled: !If [HasDedicatedMasterNodes, true, false]
@@ -1349,7 +1356,7 @@ Resources:
         Statement:
           - 
             Principal:
-              AWS: "*"
+              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
             Action:
             - "es:ESHttpGet"
             - "es:ESHttpPut"
@@ -1360,7 +1367,7 @@ Resources:
                IpAddress:
                  aws:SourceIp:
                    - Ref: RemoteAccessCIDR
-            Resource: "arn:aws:es:*"    
+            Resource: !Sub 'arn:aws:es:${AWS::Region}:${AWS::AccountId}:domain/${ESDomainName}/*'
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
         indices.fielddata.cache.size: '100'
@@ -1451,7 +1458,7 @@ Resources:
                       - ':'
                       - !Ref 'AWS::AccountId'
                       - :domain/
-                      - !Ref 'ESDomain'
+                      - !Ref 'ESDomainName'
                   - !Join
                     - ''
                     - - 'arn:aws:es:'
@@ -1459,7 +1466,7 @@ Resources:
                       - ':'
                       - !Ref 'AWS::AccountId'
                       - :domain/
-                      - !Ref 'ESDomain'
+                      - !Ref 'ESDomainName'
                       - /*
               - Sid: ''
                 Effect: Allow
@@ -1730,13 +1737,13 @@ Resources:
           Prefix: RedshiftDelivery/
         Username: !Ref 'MasterUser'
         
-  NotificationTopic:
+  AppNotificationTopic:
     Type: AWS::SNS::Topic
     Properties:
       Subscription:
         - Endpoint: !Ref 'OperatorEMail'
           Protocol: email
-  NotificationTopicPolicy:
+  AppNotificationTopicPolicy:
     Type: AWS::SNS::TopicPolicy
     Properties:
       PolicyDocument:
@@ -1747,9 +1754,9 @@ Resources:
             Service:
               - events.amazonaws.com
           Action: sns:Publish
-          Resource: !Ref NotificationTopic
+          Resource: !Ref AppNotificationTopic
       Topics:
-      - !Ref NotificationTopic
+      - !Ref AppNotificationTopic
   AppServerGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Condition: isDemon
@@ -1774,7 +1781,7 @@ Resources:
       TargetGroupARNs:
         - !Ref TargetGroupPublic
       NotificationConfiguration:
-        TopicARN: !Ref 'NotificationTopic'
+        TopicARN: !Ref 'AppNotificationTopic'
         NotificationTypes:
           - autoscaling:EC2_INSTANCE_LAUNCH
           - autoscaling:EC2_INSTANCE_LAUNCH_ERROR
@@ -1945,7 +1952,7 @@ Resources:
       TargetGroupARNs:
         - !Ref TargetGroupPublic
       NotificationConfiguration:
-        TopicARN: !Ref 'NotificationTopic'
+        TopicARN: !Ref 'AppNotificationTopic'
         NotificationTypes:
           - autoscaling:EC2_INSTANCE_LAUNCH
           - autoscaling:EC2_INSTANCE_LAUNCH_ERROR
@@ -2287,7 +2294,7 @@ Resources:
           Resource: !Ref BastionNotificationTopic
       Topics:
       - !Ref BastionNotificationTopic
-  KinesisAnalyticsRole:
+  ESAnalyticsRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -2304,8 +2311,67 @@ Resources:
             Version: "2012-10-17"
             Statement:
               - Effect: Allow
-                Action: "*"
-                Resource: "*"
+                Action:
+                  - "firehose:DescribeDeliveryStream"
+                  - "firehose:Get*"
+                  - "firehose:PutRecordBatch"
+                  - "firehose:PutRecord"
+                  - "firehose:DescribeDeliveryStream"
+                  - "es:*"
+                  - "kinesis:*"
+                Resource: !GetAtt FIrehoseToElasticsearch.Arn
+  RSAnalyticsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: kinesisanalytics.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: Open
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "firehose:DescribeDeliveryStream"
+                  - "firehose:Get*"
+                  - "firehose:PutRecordBatch"
+                  - "firehose:PutRecord"
+                  - "firehose:DescribeDeliveryStream"
+                  - "redshift:*"
+                  - "kinesis:*"
+                Resource: !GetAtt FIrehoseToRedshift.Arn
+  S3AnalyticsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: kinesisanalytics.amazonaws.com
+            Action: "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: Open
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "firehose:DescribeDeliveryStream"
+                  - "firehose:Get*"
+                  - "firehose:PutRecordBatch"
+                  - "firehose:PutRecord"
+                  - "firehose:DescribeDeliveryStream"
+                  - "s3:*"
+                  - "kinesis:*"
+                Resource: !GetAtt FIrehoseToS3.Arn
   ESCloudwatchLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:
@@ -2352,7 +2418,7 @@ Resources:
                   RecordRowPath: "$"
           KinesisFirehoseInput:
             ResourceARN: !GetAtt FIrehoseToElasticsearch.Arn
-            RoleARN: !GetAtt KinesisAnalyticsRole.Arn      
+            RoleARN: !GetAtt ESAnalyticsRole.Arn      
   BasicApplicationOutputs:
     Type: AWS::KinesisAnalytics::ApplicationOutput
     DependsOn: BasicApplication1
@@ -2364,7 +2430,7 @@ Resources:
           RecordFormatType: "CSV"
         KinesisFirehoseOutput:
           ResourceARN: !GetAtt FIrehoseToElasticsearch.Arn
-          RoleARN: !GetAtt KinesisAnalyticsRole.Arn
+          RoleARN: !GetAtt ESAnalyticsRole.Arn
   BasicApplication2:
     Type: AWS::KinesisAnalytics::Application
     Properties:
@@ -2384,7 +2450,7 @@ Resources:
                   RecordRowPath: "$"
           KinesisFirehoseInput:
             ResourceARN: !GetAtt FIrehoseToRedshift.Arn
-            RoleARN: !GetAtt KinesisAnalyticsRole.Arn
+            RoleARN: !GetAtt RSAnalyticsRole.Arn
   SecondBasicApplicationOutputs:
     Type: AWS::KinesisAnalytics::ApplicationOutput
     DependsOn: BasicApplication2
@@ -2396,7 +2462,7 @@ Resources:
           RecordFormatType: "CSV"
         KinesisFirehoseOutput:
           ResourceARN: !GetAtt FIrehoseToRedshift.Arn
-          RoleARN: !GetAtt KinesisAnalyticsRole.Arn
+          RoleARN: !GetAtt RSAnalyticsRole.Arn
   BasicApplication3:
     Type: AWS::KinesisAnalytics::Application
     Properties:
@@ -2416,7 +2482,7 @@ Resources:
                   RecordRowPath: "$"
           KinesisFirehoseInput:
             ResourceARN: !GetAtt FIrehoseToS3.Arn
-            RoleARN: !GetAtt KinesisAnalyticsRole.Arn
+            RoleARN: !GetAtt S3AnalyticsRole.Arn
   ThirdBasicApplicationOutputs:
     Type: AWS::KinesisAnalytics::ApplicationOutput
     DependsOn: BasicApplication3
@@ -2428,7 +2494,7 @@ Resources:
           RecordFormatType: "CSV"
         KinesisFirehoseOutput:
           ResourceARN: !GetAtt FIrehoseToS3.Arn
-          RoleARN: !GetAtt KinesisAnalyticsRole.Arn
+          RoleARN: !GetAtt S3AnalyticsRole.Arn
 
 Outputs:
   AppSecurityGroup:
@@ -2440,7 +2506,7 @@ Outputs:
   S3DeliveryStream:
     Value: !Ref FIrehoseToS3
   ElasticSearchDomainName:
-    Value: !Ref ESDomain
+    Value: !Ref ESDomainName
   ElasticSearchDomainEndpoint:
     Value: !GetAtt ESDomain.DomainEndpoint
   ElasticSearchDeliveryStream:

@@ -574,11 +574,9 @@ Parameters:
   ESIndex:
     Description: Index name of the amazon elasticsearch domain.
     Type: String
-    Default: test
   ESType:
     Description: Name of the amazon elasticsearch type.
     Type: String
-    Default: test
   ESIndexRotation:
     Description: Frequency at which the amazon elasticsearch index will be rotated.
     Type: String
@@ -607,7 +605,6 @@ Parameters:
     Description: The name of the first database to be created when the redshift cluster is
       created
     Type: String
-    Default: dev
     AllowedPattern: "([a-z]|[0-9])+"
   ClusterType:
     Description: The type of redshift cluster
@@ -636,11 +633,10 @@ Parameters:
     Description: Master user password for redshift cluster
     NoEcho: 'true'
     Type: String
-    Default: Test!123
   MasterUser:
     Description: Name of the master user of the redshift cluster
     Type: String
-    Default: test
+    Default: masteruser
   RedshiftBufferInterval:
     Description: Number of seconds to buffer data before delivering to S3 (60 to 900).
     Type: Number
@@ -665,7 +661,7 @@ Parameters:
     Type: String
     Default: '5439'
   isDemo:
-    Description: Set to YES if you want to ingest demo data into redshift.
+    Description: Set to 'yes' if you want to ingest demo data into redshift.
     Type: String
     AllowedValues:
       - 'yes'
@@ -1356,7 +1352,7 @@ Resources:
         Statement:
           - 
             Principal:
-              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+              AWS: "*"
             Action:
             - "es:ESHttpGet"
             - "es:ESHttpPut"
@@ -2399,10 +2395,11 @@ Resources:
     Properties: 
       LogGroupName: !Ref S3CloudwatchLogsGroup
       LogStreamName: S3
-  BasicApplication1:
+  FirehoseToElasticSearchApp:
     Type: AWS::KinesisAnalytics::Application
     Properties:
-      ApplicationDescription: "ES-SampleApp"
+      ApplicationName: "FirehoseToElasticSearchApp"
+      ApplicationDescription: "ElasticSearch-SampleApp"
       ApplicationCode: "Example Application Code"
       Inputs:
         - NamePrefix: "exampleNamePrefix"
@@ -2421,9 +2418,9 @@ Resources:
             RoleARN: !GetAtt ESAnalyticsRole.Arn      
   BasicApplicationOutputs:
     Type: AWS::KinesisAnalytics::ApplicationOutput
-    DependsOn: BasicApplication1
+    DependsOn: FirehoseToElasticSearchApp
     Properties:
-      ApplicationName: !Ref BasicApplication1
+      ApplicationName: !Ref FirehoseToElasticSearchApp
       Output:
         Name: "exampleOutput"
         DestinationSchema:
@@ -2431,10 +2428,11 @@ Resources:
         KinesisFirehoseOutput:
           ResourceARN: !GetAtt FIrehoseToElasticsearch.Arn
           RoleARN: !GetAtt ESAnalyticsRole.Arn
-  BasicApplication2:
+  FirehoseToRedshiftApp:
     Type: AWS::KinesisAnalytics::Application
     Properties:
-      ApplicationDescription: "RS-SampleApp"
+      ApplicationName: "FirehoseToRedshiftApp"
+      ApplicationDescription: "Redshift-SampleApp"
       ApplicationCode: "Example Application Code"
       Inputs:
         - NamePrefix: "exampleNamePrefix"
@@ -2453,9 +2451,9 @@ Resources:
             RoleARN: !GetAtt RSAnalyticsRole.Arn
   SecondBasicApplicationOutputs:
     Type: AWS::KinesisAnalytics::ApplicationOutput
-    DependsOn: BasicApplication2
+    DependsOn: FirehoseToRedshiftApp
     Properties:
-      ApplicationName: !Ref BasicApplication2
+      ApplicationName: !Ref FirehoseToRedshiftApp
       Output:
         Name: "exampleOutput"
         DestinationSchema:
@@ -2463,9 +2461,10 @@ Resources:
         KinesisFirehoseOutput:
           ResourceARN: !GetAtt FIrehoseToRedshift.Arn
           RoleARN: !GetAtt RSAnalyticsRole.Arn
-  BasicApplication3:
+  FirehoseToS3App:
     Type: AWS::KinesisAnalytics::Application
     Properties:
+      ApplicationName: "FirehoseToS3App"
       ApplicationDescription: "S3-SampleApp"
       ApplicationCode: "Example Application Code"
       Inputs:
@@ -2485,9 +2484,9 @@ Resources:
             RoleARN: !GetAtt S3AnalyticsRole.Arn
   ThirdBasicApplicationOutputs:
     Type: AWS::KinesisAnalytics::ApplicationOutput
-    DependsOn: BasicApplication3
+    DependsOn: FirehoseToS3App
     Properties:
-      ApplicationName: !Ref BasicApplication3
+      ApplicationName: !Ref FirehoseToS3App
       Output:
         Name: "exampleOutput"
         DestinationSchema:
@@ -2509,6 +2508,8 @@ Outputs:
     Value: !Ref ESDomainName
   ElasticSearchDomainEndpoint:
     Value: !GetAtt ESDomain.DomainEndpoint
+  ElasticSearchKibanaEndpoint:
+    Value: !Sub "https://${ESDomain.DomainEndpoint}/_plugin/kibana/"
   ElasticSearchDeliveryStream:
     Value: !Ref FIrehoseToElasticsearch
   RedshiftCluster:
@@ -2524,8 +2525,8 @@ Outputs:
   LoadBalancerDNSEndpoint:
     Value: !Sub 'http://${PublicLoadBalancer.DNSName}'
   KinesisAnalyticsApp1:
-    Value: !Ref BasicApplication1
+    Value: !Ref FirehoseToElasticSearchApp
   KinesisAnalyticsApp2:
-    Value: !Ref BasicApplication2
+    Value: !Ref FirehoseToRedshiftApp
   KinesisAnalyticsApp3:
-    Value: !Ref BasicApplication3
+    Value: !Ref FirehoseToS3App

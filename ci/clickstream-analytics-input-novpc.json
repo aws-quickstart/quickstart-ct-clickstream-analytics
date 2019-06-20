@@ -1,27 +1,23 @@
 [
   {
       "ParameterKey": "OperatorEMail",
-      "ParameterValue": "user@example.com"
+      "ParameterValue": "operator@example.com"
   },
   {
       "ParameterKey": "AvailabilityZones",
       "ParameterValue": "$[taskcat_genaz_2]"
   },
   {
-      "ParameterKey": "RedshiftColumns",
-      "ParameterValue": ""
-  },
-  {
       "ParameterKey": "KeyPairName",
-      "ParameterValue": "your-key-pair"
+      "ParameterValue": "$[alfred_getkeypair]"
   },
   {
       "ParameterKey": "AppKeyPairName",
-      "ParameterValue": "your-key-pair"
+      "ParameterValue": "$[alfred_getkeypair]"
   },
   {
       "ParameterKey": "RemoteAccessCIDR",
-      "ParameterValue": "0.0.0.0/0"
+      "ParameterValue": "10.0.0.0/16"
   },
   {
       "ParameterKey": "VPC",
@@ -29,19 +25,43 @@
   },
   {
       "ParameterKey": "PublicSubnetA",
-      "ParameterValue": "your-subnet-id"
+      "ParameterValue": "10.0.128.0/20"
   },
   {
       "ParameterKey": "PublicSubnetB",
-      "ParameterValue": "your-subnet-id"
+      "ParameterValue": "10.0.144.0/20"
   },
   {
       "ParameterKey": "PrivateSubnetA",
-      "ParameterValue": "your-subnet-id"
+      "ParameterValue": "10.0.0.0/19"
   },
   {
       "ParameterKey": "PrivateSubnetB",
-      "ParameterValue": "your-subnet-id"
+      "ParameterValue": "10.0.32.0/19"
+  },
+  {
+      "ParameterKey": "ESDomainName",
+      "ParameterValue": "$[taskcat_random-string]"
+  },
+  {
+      "ParameterKey": "ESIndex",
+      "ParameterValue": "test"
+  },
+  {
+      "ParameterKey": "ESType",
+      "ParameterValue": "doc"
+  },
+  {
+      "ParameterKey": "DatabaseName",
+      "ParameterValue": "dev"
+  },
+  {
+      "ParameterKey": "MasterUserPassword",
+      "ParameterValue": "$[taskcat_genpass_8A]"
+  },
+  {
+      "ParameterKey": "RedshiftColumns",
+      "ParameterValue": ""
   },
   {
     "ParameterKey": "QSS3BucketName",

@@ -86,9 +86,9 @@ Metadata:
           default: AWS quick start configuration
         Parameters:
           - QSS3BucketName
-          - QSS3KeyPrefix
+          - QSS3KeyPrefix  
       - Label:
-          default: Custom website configuration
+          default: Custom website content
         Parameters:
           - WebsiteContent          
     ParameterLabels:
@@ -569,11 +569,9 @@ Parameters:
   ESIndex:
     Description: Index name of the amazon elasticsearch domain.
     Type: String
-    Default: test
   ESType:
     Description: Name of the amazon elasticsearch type.
     Type: String
-    Default: test
   ESIndexRotation:
     Description: Frequency at which the amazon elasticsearch index will be rotated.
     Type: String
@@ -601,7 +599,6 @@ Parameters:
   DatabaseName:
     Description: The name of the first database to be created when the redshift cluster is created
     Type: String
-    Default: dev
     AllowedPattern: "([a-z]|[0-9])+"
   ClusterType:
     Description: The type of redshift cluster
@@ -630,11 +627,10 @@ Parameters:
     Description: Master user password for redshift cluster
     NoEcho: 'true'
     Type: String
-    Default: Test!123
   MasterUser:
     Description: Name of the master user of the redshift cluster
     Type: String
-    Default: test
+    Default: masteruser
   RedshiftBufferInterval:
     Description: Number of seconds to buffer data before delivering to S3 (60 to 900).
     Type: Number
@@ -642,7 +638,7 @@ Parameters:
     MinValue: 60
     MaxValue: 900
   RedshiftBufferSize:
-    Description: Number of MB of data to buffer before delivering to S3 (1 to 128).
+    Description: MB of data to buffer before delivering to S3 (1 to 128).
     Type: Number
     Default: 5
     MinValue: 1
@@ -659,14 +655,14 @@ Parameters:
     Type: String
     Default: '5439'
   isDemo:
-    Description: Set to NO if you do not want to ingest demo data into redshift.
+    Description: Set to 'yes' if you want to ingest demo data into redshift.
     Type: String
     AllowedValues:
       - 'yes'
       - 'no'
     Default: 'no'
   WebsiteContent:
-    Description: Provide S3 bucket name with path to deploy website in this quickstart. Leave blank if there is no site to deploy.
+    Description: This is the S3 location where your custom website contents are uploaded. This QuickStart will deploy your website from this location. Leave blank if there is no site to deploy.
     Type: String    
 Mappings:
   InstanceType2Arch:
@@ -1860,8 +1856,13 @@ Resources:
                 EOL'
                 /usr/bin/sudo /sbin/service aws-kinesis-agent start
                 /usr/bin/sudo /sbin/chkconfig aws-kinesis-agent on
-                /usr/bin/aws s3 sync s3://${WebsiteContent} /var/www/html/ || true                
-                /usr/bin/sudo service httpd restart
+                WebsiteContentURL=${WebsiteContent}
+                if [ -z "$WebsiteContentURL" ]
+                then
+                    echo "WebsiteContentURL Variable is empty."
+                else
+                    /usr/bin/aws s3 sync s3://$WebsiteContentURL /var/www/html/ && /usr/bin/sudo /sbin/service httpd restart
+                fi
     Properties:
       KeyName: !Ref 'AppKeyPairName'
       ImageId: !FindInMap
@@ -2084,8 +2085,8 @@ Resources:
           then
                echo "WebsiteContentURL Variable is empty."
           else
-               /usr/bin/aws s3 sync s3://${WebsiteContent} /var/www/html/ && /usr/bin/sudo /sbin/service httpd restart
-          fi          
+               /usr/bin/aws s3 sync s3://$WebsiteContentURL /var/www/html/ && /usr/bin/sudo /sbin/service httpd restart
+          fi
           /usr/bin/sudo /bin/chown -R aws-kinesis-agent-user:aws-kinesis-agent-user /var/log/demodata/
           source <(aws sts assume-role --role-arn arn:aws:iam::${AWS::AccountId}:role/${AppRole} --role-session-name "QuickStart" --duration-seconds 1900 | jq -r  '.Credentials | @sh "export AWS_SESSION_TOKEN=\(.SessionToken)\nexport AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) "')
           export PGPASSWORD='${MasterUserPassword}'
@@ -2267,6 +2268,7 @@ Resources:
           Resource: !Ref BastionNotificationTopic
       Topics:
       - !Ref BastionNotificationTopic
+
   ESCloudwatchLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:
@@ -2320,6 +2322,8 @@ Outputs:
     Value: !Ref ESDomainName
   ElasticSearchDomainEndpoint:
     Value: !GetAtt ESDomain.DomainEndpoint
+  ElasticSearchKibanaEndpoint:
+    Value: !Sub "https://${ESDomain.DomainEndpoint}/_plugin/kibana/"
   ElasticSearchDeliveryStream:
     Value: !Ref FIrehoseToElasticsearch
   RedshiftCluster:

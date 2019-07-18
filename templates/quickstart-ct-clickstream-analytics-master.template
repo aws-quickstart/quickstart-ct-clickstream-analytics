@@ -85,7 +85,7 @@ Metadata:
           - QSS3BucketName
           - QSS3KeyPrefix
       - Label:
-          default: Custom website configuration
+          default: Custom website content
         Parameters:
           - WebsiteContent
     ParameterLabels:
@@ -610,8 +610,7 @@ Parameters:
     MinValue: 1
     MaxValue: 100
   DatabaseName:
-    Description: The name of the first database to be created when the redshift cluster is
-      created
+    Description: The name of the first database to be created when the redshift cluster is created
     Type: String
     Default: dev
     AllowedPattern: "([a-z]|[0-9])+"
@@ -678,7 +677,7 @@ Parameters:
       - 'no'
     Default: 'no'
   WebsiteContent:
-    Description: Provide S3 bucket name with path to deploy website in this quickstart. Leave blank if there is no site to deploy.
+    Description: This is the S3 location where your custom website contents are uploaded. This QuickStart will deploy your website from this location. Leave blank if there is no site to deploy.
     Type: String
 Mappings:
   InstanceType2Arch:
@@ -1904,8 +1903,13 @@ Resources:
                 EOL'
                 /usr/bin/sudo /sbin/service aws-kinesis-agent start
                 /usr/bin/sudo /sbin/chkconfig aws-kinesis-agent on
-                /usr/bin/aws s3 sync s3://${WebsiteContent} /var/www/html/ || true                
-                /usr/bin/sudo service httpd restart
+                WebsiteContentURL=${WebsiteContent}
+                if [ -z "$WebsiteContentURL" ]
+                then
+                    echo "WebsiteContentURL Variable is empty."
+                else
+                    /usr/bin/aws s3 sync s3://$WebsiteContentURL /var/www/html/ && /usr/bin/sudo /sbin/service httpd restart
+                fi
     Properties:
       KeyName: !Ref 'AppKeyPairName'
       ImageId: !FindInMap
@@ -2128,7 +2132,7 @@ Resources:
           then
                echo "WebsiteContentURL Variable is empty."
           else
-               /usr/bin/aws s3 sync s3://${WebsiteContent} /var/www/html/ && /usr/bin/sudo /sbin/service httpd restart
+               /usr/bin/aws s3 sync s3://$WebsiteContentURL /var/www/html/ && /usr/bin/sudo /sbin/service httpd restart
           fi
           /usr/bin/sudo /bin/chown -R aws-kinesis-agent-user:aws-kinesis-agent-user /var/log/demodata/
           source <(aws sts assume-role --role-arn arn:aws:iam::${AWS::AccountId}:role/${AppRole} --role-session-name "QuickStart" --duration-seconds 1900 | jq -r  '.Credentials | @sh "export AWS_SESSION_TOKEN=\(.SessionToken)\nexport AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) "')

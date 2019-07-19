@@ -1861,8 +1861,9 @@ Resources:
                 then
                     echo "WebsiteContentURL Variable is empty."
                 else
-                    /usr/bin/aws s3 sync s3://$WebsiteContentURL /var/www/html/ && /usr/bin/sudo /sbin/service httpd restart
+                    /usr/bin/aws s3 sync s3://$WebsiteContentURL /var/www/html/
                 fi
+                /usr/bin/sudo /sbin/service httpd restart
     Properties:
       KeyName: !Ref 'AppKeyPairName'
       ImageId: !FindInMap

@@ -84,6 +84,10 @@ Metadata:
         Parameters:
           - QSS3BucketName
           - QSS3KeyPrefix
+      - Label:
+          default: Custom website content
+        Parameters:
+          - WebsiteContent
     ParameterLabels:
       ESClusterInstanceCount:
         default: Number of instances to run in cluster
@@ -177,6 +181,8 @@ Metadata:
         default: Buffer size
       S3DestinationPrefix:
         default: Destination prefix
+      WebsiteContent:
+        default: Website content s3 bucket
 Parameters:
   ESClusterInstanceCount:
     Type: String
@@ -602,8 +608,7 @@ Parameters:
     MinValue: 1
     MaxValue: 100
   DatabaseName:
-    Description: The name of the first database to be created when the redshift cluster is
-      created
+    Description: The name of the first database to be created when the redshift cluster is created
     Type: String
     AllowedPattern: "([a-z]|[0-9])+"
   ClusterType:
@@ -667,6 +672,9 @@ Parameters:
       - 'yes'
       - 'no'
     Default: 'no'
+  WebsiteContent:
+    Description: This is the S3 location where your custom website contents are uploaded. This QuickStart will deploy your website from this location. Leave blank if there is no site to deploy.
+    Type: String
 Mappings:
   InstanceType2Arch:
     t1.micro:
@@ -1891,7 +1899,14 @@ Resources:
                 EOL'
                 /usr/bin/sudo /sbin/service aws-kinesis-agent start
                 /usr/bin/sudo /sbin/chkconfig aws-kinesis-agent on
-                /usr/bin/sudo service httpd restart
+                WebsiteContentURL=${WebsiteContent}
+                if [ -z "$WebsiteContentURL" ]
+                then
+                    echo "WebsiteContentURL Variable is empty."
+                else
+                    /usr/bin/aws s3 sync s3://$WebsiteContentURL /var/www/html/
+                fi
+                /usr/bin/sudo /sbin/service httpd restart
     Properties:
       KeyName: !Ref 'AppKeyPairName'
       ImageId: !FindInMap
@@ -2109,6 +2124,13 @@ Resources:
           /usr/bin/wget https://s3-us-west-2.amazonaws.com/ctepoc-clickctream-dataset/OtherClickStreamDataSets/Schematic_Log.csv
           /usr/bin/sudo /bin/mv ./GADemoData.csv ./Schematic_Log.csv /var/log/demodata
           /usr/bin/aws s3 sync /var/log/demodata/ s3://${StreamingAnalyticsBucket}/demodata --acl public-read
+          WebsiteContentURL=${WebsiteContent}
+          if [ -z "$WebsiteContentURL" ]
+          then
+               echo "WebsiteContentURL Variable is empty."
+          else
+               /usr/bin/aws s3 sync s3://$WebsiteContentURL /var/www/html/ && /usr/bin/sudo /sbin/service httpd restart
+          fi
           /usr/bin/sudo /bin/chown -R aws-kinesis-agent-user:aws-kinesis-agent-user /var/log/demodata/
           source <(aws sts assume-role --role-arn arn:aws:iam::${AWS::AccountId}:role/${AppRole} --role-session-name "QuickStart" --duration-seconds 1900 | jq -r  '.Credentials | @sh "export AWS_SESSION_TOKEN=\(.SessionToken)\nexport AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) "')
           export PGPASSWORD='${MasterUserPassword}'
@@ -2290,84 +2312,6 @@ Resources:
           Resource: !Ref BastionNotificationTopic
       Topics:
       - !Ref BastionNotificationTopic
-  ESAnalyticsRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: kinesisanalytics.amazonaws.com
-            Action: "sts:AssumeRole"
-      Path: "/"
-      Policies:
-        - PolicyName: Open
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: Allow
-                Action:
-                  - "firehose:DescribeDeliveryStream"
-                  - "firehose:Get*"
-                  - "firehose:PutRecordBatch"
-                  - "firehose:PutRecord"
-                  - "firehose:DescribeDeliveryStream"
-                  - "es:*"
-                  - "kinesis:*"
-                Resource: !GetAtt FIrehoseToElasticsearch.Arn
-  RSAnalyticsRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: kinesisanalytics.amazonaws.com
-            Action: "sts:AssumeRole"
-      Path: "/"
-      Policies:
-        - PolicyName: Open
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: Allow
-                Action:
-                  - "firehose:DescribeDeliveryStream"
-                  - "firehose:Get*"
-                  - "firehose:PutRecordBatch"
-                  - "firehose:PutRecord"
-                  - "firehose:DescribeDeliveryStream"
-                  - "redshift:*"
-                  - "kinesis:*"
-                Resource: !GetAtt FIrehoseToRedshift.Arn
-  S3AnalyticsRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: kinesisanalytics.amazonaws.com
-            Action: "sts:AssumeRole"
-      Path: "/"
-      Policies:
-        - PolicyName: Open
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: Allow
-                Action:
-                  - "firehose:DescribeDeliveryStream"
-                  - "firehose:Get*"
-                  - "firehose:PutRecordBatch"
-                  - "firehose:PutRecord"
-                  - "firehose:DescribeDeliveryStream"
-                  - "s3:*"
-                  - "kinesis:*"
-                Resource: !GetAtt FIrehoseToS3.Arn
   ESCloudwatchLogsGroup:
     Type: AWS::Logs::LogGroup
     Properties:
@@ -2395,105 +2339,6 @@ Resources:
     Properties: 
       LogGroupName: !Ref S3CloudwatchLogsGroup
       LogStreamName: S3
-  FirehoseToElasticSearchApp:
-    Type: AWS::KinesisAnalytics::Application
-    Properties:
-      ApplicationName: "FirehoseToElasticSearchApp"
-      ApplicationDescription: "ElasticSearch-SampleApp"
-      ApplicationCode: "Example Application Code"
-      Inputs:
-        - NamePrefix: "exampleNamePrefix"
-          InputSchema:
-            RecordColumns:
-             - Name: "example"
-               SqlType: "VARCHAR(16)"
-               Mapping: "$.example"
-            RecordFormat:
-              RecordFormatType: "JSON"
-              MappingParameters:
-                JSONMappingParameters:
-                  RecordRowPath: "$"
-          KinesisFirehoseInput:
-            ResourceARN: !GetAtt FIrehoseToElasticsearch.Arn
-            RoleARN: !GetAtt ESAnalyticsRole.Arn      
-  BasicApplicationOutputs:
-    Type: AWS::KinesisAnalytics::ApplicationOutput
-    DependsOn: FirehoseToElasticSearchApp
-    Properties:
-      ApplicationName: !Ref FirehoseToElasticSearchApp
-      Output:
-        Name: "exampleOutput"
-        DestinationSchema:
-          RecordFormatType: "CSV"
-        KinesisFirehoseOutput:
-          ResourceARN: !GetAtt FIrehoseToElasticsearch.Arn
-          RoleARN: !GetAtt ESAnalyticsRole.Arn
-  FirehoseToRedshiftApp:
-    Type: AWS::KinesisAnalytics::Application
-    Properties:
-      ApplicationName: "FirehoseToRedshiftApp"
-      ApplicationDescription: "Redshift-SampleApp"
-      ApplicationCode: "Example Application Code"
-      Inputs:
-        - NamePrefix: "exampleNamePrefix"
-          InputSchema:
-            RecordColumns:
-             - Name: "example"
-               SqlType: "VARCHAR(16)"
-               Mapping: "$.example"
-            RecordFormat:
-              RecordFormatType: "JSON"
-              MappingParameters:
-                JSONMappingParameters:
-                  RecordRowPath: "$"
-          KinesisFirehoseInput:
-            ResourceARN: !GetAtt FIrehoseToRedshift.Arn
-            RoleARN: !GetAtt RSAnalyticsRole.Arn
-  SecondBasicApplicationOutputs:
-    Type: AWS::KinesisAnalytics::ApplicationOutput
-    DependsOn: FirehoseToRedshiftApp
-    Properties:
-      ApplicationName: !Ref FirehoseToRedshiftApp
-      Output:
-        Name: "exampleOutput"
-        DestinationSchema:
-          RecordFormatType: "CSV"
-        KinesisFirehoseOutput:
-          ResourceARN: !GetAtt FIrehoseToRedshift.Arn
-          RoleARN: !GetAtt RSAnalyticsRole.Arn
-  FirehoseToS3App:
-    Type: AWS::KinesisAnalytics::Application
-    Properties:
-      ApplicationName: "FirehoseToS3App"
-      ApplicationDescription: "S3-SampleApp"
-      ApplicationCode: "Example Application Code"
-      Inputs:
-        - NamePrefix: "exampleNamePrefix"
-          InputSchema:
-            RecordColumns:
-             - Name: "example"
-               SqlType: "VARCHAR(16)"
-               Mapping: "$.example"
-            RecordFormat:
-              RecordFormatType: "JSON"
-              MappingParameters:
-                JSONMappingParameters:
-                  RecordRowPath: "$"
-          KinesisFirehoseInput:
-            ResourceARN: !GetAtt FIrehoseToS3.Arn
-            RoleARN: !GetAtt S3AnalyticsRole.Arn
-  ThirdBasicApplicationOutputs:
-    Type: AWS::KinesisAnalytics::ApplicationOutput
-    DependsOn: FirehoseToS3App
-    Properties:
-      ApplicationName: !Ref FirehoseToS3App
-      Output:
-        Name: "exampleOutput"
-        DestinationSchema:
-          RecordFormatType: "CSV"
-        KinesisFirehoseOutput:
-          ResourceARN: !GetAtt FIrehoseToS3.Arn
-          RoleARN: !GetAtt S3AnalyticsRole.Arn
 
 Outputs:
   AppSecurityGroup:
@@ -2524,9 +2369,3 @@ Outputs:
     Value: !GetAtt PublicLoadBalancer.DNSName
   LoadBalancerDNSEndpoint:
     Value: !Sub 'http://${PublicLoadBalancer.DNSName}'
-  KinesisAnalyticsApp1:
-    Value: !Ref FirehoseToElasticSearchApp
-  KinesisAnalyticsApp2:
-    Value: !Ref FirehoseToRedshiftApp
-  KinesisAnalyticsApp3:
-    Value: !Ref FirehoseToS3App

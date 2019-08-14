@@ -342,7 +342,7 @@ Parameters:
     ConstraintDescription: Quick Start key prefix can include numbers, lowercase letters,
       uppercase letters, hyphens (-), and forward slash (/). It cannot start or end
       with forward slash (/) because they are automatically appended.
-    Default: quickstart-examples/
+    Default: quickstart-ct-clickstream-analytics/
     Description: S3 key prefix used to simulate a folder for your copy of Quick Start
       assets, if you decide to customize or extend the Quick Start for your own use.
       This prefix can include numbers, lowercase letters, uppercase letters, hyphens,
@@ -580,11 +580,9 @@ Parameters:
   ESIndex:
     Description: Index name of the amazon elasticsearch domain.
     Type: String
-    Default: test
   ESType:
     Description: Name of the amazon elasticsearch type.
     Type: String
-    Default: test
   ESIndexRotation:
     Description: Frequency at which the amazon elasticsearch index will be rotated.
     Type: String
@@ -612,7 +610,6 @@ Parameters:
   DatabaseName:
     Description: The name of the first database to be created when the redshift cluster is created
     Type: String
-    Default: dev
     AllowedPattern: "([a-z]|[0-9])+"
   ClusterType:
     Description: The type of redshift cluster
@@ -641,11 +638,10 @@ Parameters:
     Description: Master user password for redshift cluster
     NoEcho: 'true'
     Type: String
-    Default: Test!123
   MasterUser:
     Description: Name of the master user of the redshift cluster
     Type: String
-    Default: test
+    Default: masteruser
   RedshiftBufferInterval:
     Description: Number of seconds to buffer data before delivering to S3 (60 to 900).
     Type: Number
@@ -670,7 +666,7 @@ Parameters:
     Type: String
     Default: '5439'
   isDemo:
-    Description: Set to YES if you want to ingest demo data into redshift.
+    Description: Set to 'yes' if you want to ingest demo data into redshift.
     Type: String
     AllowedValues:
       - 'yes'
@@ -1364,7 +1360,7 @@ Resources:
         Statement:
           - 
             Principal:
-              AWS: !Sub "arn:aws:iam::${AWS::AccountId}:root"
+              AWS: "*"
             Action:
             - "es:ESHttpGet"
             - "es:ESHttpPut"
@@ -2357,6 +2353,8 @@ Outputs:
     Value: !Ref ESDomainName
   ElasticSearchDomainEndpoint:
     Value: !GetAtt ESDomain.DomainEndpoint
+  ElasticSearchKibanaEndpoint:
+    Value: !Sub "https://${ESDomain.DomainEndpoint}/_plugin/kibana/"
   ElasticSearchDeliveryStream:
     Value: !Ref FIrehoseToElasticsearch
   RedshiftCluster:

@@ -331,7 +331,7 @@ Parameters:
     ConstraintDescription: Quick Start key prefix can include numbers, lowercase letters,
       uppercase letters, hyphens (-), and forward slash (/). It cannot start or end
       with forward slash (/) because they are automatically appended.
-    Default: quickstart-examples/
+    Default: quickstart-ct-clickstream-analytics/
     Description: S3 key prefix used to simulate a folder for your copy of Quick Start
       assets, if you decide to customize or extend the Quick Start for your own use.
       This prefix can include numbers, lowercase letters, uppercase letters, hyphens,
@@ -663,7 +663,7 @@ Parameters:
     Default: 'no'
   WebsiteContent:
     Description: This is the S3 location where your custom website contents are uploaded. This QuickStart will deploy your website from this location. Leave blank if there is no site to deploy.
-    Type: String    
+    Type: String 
 Mappings:
   InstanceType2Arch:
     t1.micro:

@@ -8,8 +8,8 @@ Metadata:
       - Label:
           default: Network configuration
         Parameters:
-          - VPC
           - AvailabilityZones
+          - VPC
       - Label:
           default: Subnet configuration
         Parameters:
@@ -38,7 +38,7 @@ Metadata:
         Parameters:
           - EncryptData
       - Label:
-          default: Amazon elasticsearch configuration
+          default: Amazon ES configuration
         Parameters:
           - ESDomainName
           - ESVersion
@@ -51,7 +51,7 @@ Metadata:
           - AutomatedSnapshotStartHour
           - VolumeType
       - Label:
-          default: Amazon kinesis firehose elasticsearch destination configuration
+          default: Amazon Elasticsearch destination configuration for Amazon Kinesis Data Firehose
         Parameters:
           - ESIndex
           - ESType
@@ -59,7 +59,7 @@ Metadata:
           - ESBufferInterval
           - ESBufferSize
       - Label:
-          default: Amazon redshift cluster configuration
+          default: Amazon Redshift cluster configuration
         Parameters:
           - DatabaseName
           - ClusterType
@@ -68,7 +68,7 @@ Metadata:
           - RedshiftPortNumber
           - isDemo
       - Label:
-          default: Amazon kinesis firehose redshift destination configuration
+          default: Amazon Redshift configuration for Amazon Kinesis Data Firehose
         Parameters:
           - MasterUser
           - MasterUserPassword
@@ -77,20 +77,20 @@ Metadata:
           - RedshiftBufferInterval
           - RedshiftBufferSize
       - Label:
-          default: Amazon kinesis firehose S3 destination configuration
+          default: Amazon S3 destination configuration for Amazon Kinesis Data Firehose
         Parameters:
           - S3BufferInterval
           - S3BufferSize
           - S3DestinationPrefix
       - Label:
-          default: AWS quick start configuration
-        Parameters:
-          - QSS3BucketName
-          - QSS3KeyPrefix  
-      - Label:
           default: Custom website content
         Parameters:
-          - WebsiteContent          
+          - WebsiteContent 
+      - Label:
+          default: AWS Quick Start configuration
+        Parameters:
+          - QSS3BucketName
+          - QSS3KeyPrefix           
     ParameterLabels:
       ESClusterInstanceCount:
         default: Number of instances to run in cluster
@@ -110,20 +110,20 @@ Metadata:
         default: EBS volume type
       VPC:
         default: Existing VPC ID
-      PublicSubnetA:
-        default: Existing public subnet ID in AZ-1
-      PublicSubnetB:
-        default: Existing public subnet ID in AZ-2
       PrivateSubnetA:
         default: Existing private subnet ID in AZ-1
       PrivateSubnetB:
         default: Existing private subnet ID in AZ-2
+      PublicSubnetA:
+        default: Existing public subnet ID in AZ-1
+      PublicSubnetB:
+        default: Existing public subnet ID in AZ-2
       QSS3BucketName:
-        default: Quick start S3 bucket name
+        default: Quick Start S3 bucket name
       QSS3KeyPrefix:
-        default: Quick start S3 key prefix       
+        default: Quick Start S3 key prefix       
       OperatorEMail:
-        default: Email ID to recieve alert notifications
+        default: Email ID to receive alert notifications
       BastionInstanceType:
         default: Bastion instance type
       BastionAMIOS:
@@ -145,7 +145,7 @@ Metadata:
       NodeType: 
         default: Node type
       AvailabilityZones:
-        default: Availability zones
+        default: Availability Zones
       EncryptData:
         default: Encrypt data at rest
       MasterUser:
@@ -185,15 +185,15 @@ Metadata:
       S3DestinationPrefix:
         default: Destination prefix
       WebsiteContent:
-        default: Website content s3 bucket        
+        default: Website content S3 bucket        
 Parameters:
   ESClusterInstanceCount:
     Type: String
-    Description: For two availability zones, you must choose instances in multiples of two
+    Description: For two Availability Zones, you must choose instances in multiples of two.
     Default: 1
   ESInstanceType:
     Type: String
-    Description: instance type for elasticsearch nodes
+    Description: The instance type for Amzazon ES nodes.
     AllowedValues:
       - t2.small.elasticsearch
       - t2.medium.elasticsearch
@@ -233,7 +233,7 @@ Parameters:
     Default: m4.large.elasticsearch
   DedicatedMasterType:
     Type: String
-    Description: Master instance type for elasticsearch nodes
+    Description: The master instance type for Amazon ES nodes.
     AllowedValues:
       - t2.small.elasticsearch
       - t2.medium.elasticsearch
@@ -273,7 +273,7 @@ Parameters:
     Default: m4.large.elasticsearch
   DedicatedMasterCount:
     Type: String
-    Description: Number of dedicated masters to run. Leave this field to default for not to have a dedicated master instances
+    Description: The number of dedicated masters to run. Leave the default value for this field, if you don’t want a dedicated master instances.
     AllowedValues:
       - 0
       - 3
@@ -281,19 +281,19 @@ Parameters:
     Default: 0
   IOPS:
     Type: String
-    Description: The provisioned IOPS value must be an integer between 1000 and 16000
+    Description: The provisioned IOPS value must be an integer between 1000 and 16000.
     Default: 0
   VolumeSize:
     Type: String
-    Description: IOPS total cluster size in GB (EBS volume size x instance count)
+    Description: IOPS total cluster size in GB (EBS volume size x instance count).
     Default: 10
   AutomatedSnapshotStartHour:
     Type: String
-    Description: Schedule automated snapshots. Value should be between 0-23
+    Description: Schedule automated snapshots. Value should be between 0-23.
     Default: 0
   VolumeType:
     Type: String
-    Description: Type of volume used for instances in a cluster
+    Description: The type of volume used for instances in a cluster.
     AllowedValues:
       - standard
       - gp2
@@ -304,27 +304,23 @@ Parameters:
     Description: Choose an existing VPC
   PublicSubnetA:
     Type: AWS::EC2::Subnet::Id
-    Description: Choose a public subnet in availability zone 1
+    Description: The public subnet in Availability Zone 1
   PublicSubnetB:
     Type: AWS::EC2::Subnet::Id
-    Description: Choose a public subnet in availability zone 2
+    Description: The public subnet in Availability Zone 2
   PrivateSubnetA:
     Type: AWS::EC2::Subnet::Id
-    Description: Choose a private subnet in availability zone 1
+    Description: The private subnet in Availability Zone 1
   PrivateSubnetB:
     Type: AWS::EC2::Subnet::Id
-    Description: Choose a private subnet in availability zone 2
+    Description: The private subnet in Availability Zone 2
   QSS3BucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
     ConstraintDescription: Quick start bucket name can include numbers, lowercase
       letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
       (-).
     Default: aws-quickstart
-    Description: "S3 bucket where the quick start templates and scripts are installed.\
-      \ Use this parameter to specify the S3 bucket name you\u2019ve created for your\
-      \ copy of Quick Start assets, if you decide to customize or extend the Quick\
-      \ Start for your own use. The bucket name can include numbers, lowercase letters,\
-      \ uppercase letters, and hyphens, but should not start or end with a hyphen."
+    Description: The S3 bucket you have created for your copy of Quick Start assets, if you decide to customize or extend the Quick Start for your own use. The bucket name can include numbers, lowercase letters, uppercase letters, and hyphens, but should not start or end with a hyphen.
     Type: String
   QSS3KeyPrefix:
     AllowedPattern: ^[0-9a-zA-Z-/]*$
@@ -332,13 +328,10 @@ Parameters:
       uppercase letters, hyphens (-), and forward slash (/). It cannot start or end
       with forward slash (/) because they are automatically appended.
     Default: quickstart-ct-clickstream-analytics/
-    Description: S3 key prefix used to simulate a folder for your copy of Quick Start
-      assets, if you decide to customize or extend the Quick Start for your own use.
-      This prefix can include numbers, lowercase letters, uppercase letters, hyphens,
-      and forward slashes.
+    Description: The S3 key name prefix used to simulate a folder for your copy of Quick Start assets, if you decide to customize or extend the Quick Start for your own use. This prefix can include numbers, lowercase letters, uppercase letters, hyphens, and forward slashes.
     Type: String
   OperatorEMail:
-    Description: Email address to notify if there are any scaling operations
+    Description: The email address to notify you, if there are any scaling operations.
     Type: String
     AllowedPattern: ([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)
     ConstraintDescription: Must be a valid email address.
@@ -346,10 +339,10 @@ Parameters:
     AllowedValues:
       - Amazon-Linux-HVM
     Default: Amazon-Linux-HVM
-    Description: The Linux distribution for the AMI to be used for the bastion instances
+    Description: The Amazon Linux distribution for the Amazon Machine Image (AMI) to be used for the bastion instances.
     Type: String
   BastionInstanceType:
-    Description: Bastion Host EC2 instance type
+    Description: The bastion host EC2 instance type
     Type: String
     Default: t2.micro
     AllowedValues:
@@ -512,7 +505,7 @@ Parameters:
     - x1.32xlarge
     ConstraintDescription: must be a valid EC2 instance type.
   KeyPairName:
-    Description: Public/private key pairs allow you to securely connect to your bastion instance after it launches. If you do not have one in this region, please create it before continuing
+    Description: A public/private key pair, which allows you to connect securely to your instance after it launches. This is the key pair you created in your preferred AWS Region; see the Technical requirements section. If you do not have one in this region, please create it before continuing.
     Type: AWS::EC2::KeyPair::KeyName
   AppKeyPairName:
     Description: Public/private key pairs allow you to securely connect to your application instance after it launches. If you do not have one in this region, please create it before continuing
@@ -528,33 +521,33 @@ Parameters:
       your selections is preserved.
     Type: List<AWS::EC2::AvailabilityZone::Name>
   S3DestinationPrefix:
-    Description: Name of prefix where the aggregated data will be stored.
+    Description: The name of the prefix where the aggregated data will be stored.
     Type: String
     Default: AggregatedData
   S3BufferInterval:
-    Description: Number of seconds to buffer data before delivering to S3 (60 to 900).
+    Description: The number of seconds to buffer data before delivering to Amazon S3 (60 to 900).
     Type: Number
     Default: 300
     MinValue: 60
     MaxValue: 900
   S3BufferSize:
-    Description: MB of data to buffer before delivering to S3 (1 to 128).
+    Description: MB of data to buffer before delivering to Amazon S3 (1 to 128).
     Type: Number
     Default: 5
     MinValue: 1
     MaxValue: 128
   EncryptData:
-    Description: Set YES to encrypt the data as it leaves your kinesis analytics application.
+    Description: Set yes to encrypt the data as it leaves your Amazon Kinesis Analytics application.
     Type: String
     AllowedValues:
       - 'yes'
       - 'no'
     Default: 'no'
   ESDomainName:
-    Description: User defined elasticsearch domain name
+    Description: The user-defined Amazon ES domain name.
     Type: String    
   ESVersion:
-    Description: User defined elasticsearch version
+    Description: The user-defined Amazon ES version.
     Type: String
     AllowedValues:
       - 6.3
@@ -567,13 +560,13 @@ Parameters:
       - 1.5
     Default: 6.3
   ESIndex:
-    Description: Index name of the amazon elasticsearch domain.
+    Description: The index name of the Amazon ES domain.
     Type: String
   ESType:
-    Description: Name of the amazon elasticsearch type.
+    Description: The name of the Amazon ES type.
     Type: String
   ESIndexRotation:
-    Description: Frequency at which the amazon elasticsearch index will be rotated.
+    Description: The frequency at which the Amazon ES index will be rotated.
     Type: String
     AllowedValues:
       - NoRotation
@@ -583,37 +576,34 @@ Parameters:
       - OneMonth
     Default: NoRotation
   ESBufferInterval:
-    Description: Number of seconds to buffer data before delivering to S3 to be copied
-      to elasticsearch (60 to 900).
+    Description: The number of seconds to buffer data before delivering to Amazon S3 to be copied to Amazon ES (60 to 900).
     Type: Number
     Default: 300
     MinValue: 60
     MaxValue: 900
   ESBufferSize:
-    Description: Number of MB of data to buffer before delivering to S3 to be copied
-      to elasticsearch (1 to 100).
+    Description: MB of data to buffer before delivering to Amazon S3 to be copied to Amazon ES (1 to 100).
     Type: Number
     Default: 5
     MinValue: 1
     MaxValue: 100
   DatabaseName:
-    Description: The name of the first database to be created when the redshift cluster is created
+    Description: The name of the first database to be created when the Amazon Redshift cluster is created.
     Type: String
     AllowedPattern: "([a-z]|[0-9])+"
   ClusterType:
-    Description: The type of redshift cluster
+    Description: The type of Amazon Redshift cluster.
     Type: String
     Default: single-node
     AllowedValues:
     - single-node
     - multi-node
   NumberOfNodes:
-    Description: The number of compute nodes in the redshift cluster. For multi-node clusters,
-      the NumberOfNodes parameter must be greater than 1
+    Description: The number of compute nodes in the Amazon Redshift cluster. For multi-node clusters, the NumberOfNodes parameter must be greater than 1.
     Type: Number
     Default: '1'
   NodeType:
-    Description: The type of Redshift node to be provisioned
+    Description: The type of Amazon Redshift node to be provisioned.
     Type: String
     Default: dc2.large
     AllowedValues:
@@ -624,38 +614,38 @@ Parameters:
     - dc2.large
     - dc2.8xlarge
   MasterUserPassword:
-    Description: Master user password for redshift cluster
+    Description: The master user password for the Amazon Redshift cluster.
     NoEcho: 'true'
     Type: String
   MasterUser:
-    Description: Name of the master user of the redshift cluster
+    Description: The name of the master user of the Amazon Redshift cluster.
     Type: String
     Default: masteruser
   RedshiftBufferInterval:
-    Description: Number of seconds to buffer data before delivering to S3 (60 to 900).
+    Description: The number of seconds to buffer data before delivering to Amazon Redshift (60 to 900).
     Type: Number
     Default: 300
     MinValue: 60
     MaxValue: 900
   RedshiftBufferSize:
-    Description: MB of data to buffer before delivering to S3 (1 to 128).
+    Description: MB of data to buffer before delivering to Amazon Redshift (1 to 128).
     Type: Number
     Default: 5
     MinValue: 1
     MaxValue: 128
   RedshiftTableName:
-    Description: Name of table in redshift cluster. Do not change it.
+    Description: The name of the table in the Amazon Redshift cluster. Do not change it.
     Type: String
     Default: apache_logs.access_logs
   RedshiftColumns:
     Description: Comma-separated list of the columns in the destination redshift table.
     Type: String
   RedshiftPortNumber:
-    Description: Redshift publicly accessible port number
+    Description: The Amazon Redshift publicly accessible port number.
     Type: String
     Default: '5439'
   isDemo:
-    Description: Set to 'yes' if you want to ingest demo data into redshift.
+    Description: Set to 'yes' if you want to ingest demo data into Amazon Redshift.
     Type: String
     AllowedValues:
       - 'yes'

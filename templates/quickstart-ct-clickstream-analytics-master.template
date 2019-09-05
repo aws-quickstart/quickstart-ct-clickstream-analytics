@@ -305,25 +305,25 @@ Parameters:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.0.0/19
-    Description: CIDR block for private subnet 1 located in availability zone 1
+    Description: CIDR block for private subnet 1 located in Availability Zone 1
     Type: String
   PrivateSubnet2CIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.32.0/19
-    Description: CIDR block for private subnet 2 located in availability zone 2
+    Description: CIDR block for private subnet 2 located in Availability Zone 2
     Type: String
   PublicSubnet1CIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.128.0/20
-    Description: CIDR block for the public (DMZ) subnet 1 located in availability zone 1
+    Description: CIDR block for the public (DMZ) subnet 1 located in Availability Zone 1
     Type: String
   PublicSubnet2CIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.144.0/20
-    Description: CIDR block for the public (DMZ) subnet 2 located in availability zone 2
+    Description: CIDR block for the public (DMZ) subnet 2 located in Availability Zone 2
     Type: String
   QSS3BucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
@@ -531,7 +531,7 @@ Parameters:
   RemoteAccessCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
-    Description: A CIDR block that’s allowed external access to the Bastion. We recommend that you use a constrained CIDR range to reduce the potential of inbound attacks from unknown IP addresses.(see http://checkip.dyndns.org/)
+    Description: A CIDR block that’s allowed external access to the bastion. We recommend that you use a constrained CIDR range to reduce the potential of inbound attacks from unknown IP addresses.(see http://checkip.dyndns.org/)
     Type: String
   AvailabilityZones:
     Description: List of Availability Zones to use for the subnets in the VPC. Only
@@ -555,7 +555,7 @@ Parameters:
     MinValue: 1
     MaxValue: 128
   EncryptData:
-    Description: SSet to yes to encrypt the data as it leaves your Amazon Kinesis Data Firehose delivery stream.
+    Description: Set to yes to encrypt the data as it leaves your Amazon Kinesis Data Firehose delivery stream.
     Type: String
     AllowedValues:
       - 'yes'
@@ -979,6 +979,25 @@ Mappings:
       RedshiftInboundTraffic: 13.232.67.32/27
     sa-east-1:
       RedshiftInboundTraffic: 18.228.1.128/27
+  AWSQuickSightIPMap:
+    ap-northeast-1: 
+      QuickSightIP: 13.113.244.32/27
+    ap-southeast-1: 
+      QuickSightIP: 13.229.254.0/27
+    ap-southeast-2: 
+      QuickSightIP: 54.153.249.96/27
+    eu-central-1: 
+      QuickSightIP: 35.158.127.192/27
+    eu-west-1: 
+      QuickSightIP: 52.210.255.224/27
+    eu-west-2: 
+      QuickSightIP: 35.177.218.0/27
+    us-east-1: 
+      QuickSightIP: 52.23.63.224/27
+    us-east-2: 
+      QuickSightIP: 52.15.247.160/27
+    us-west-2: 
+      QuickSightIP: 54.70.204.128/27
       
 Conditions:
   IsMultiNodeCluster:
@@ -1601,6 +1620,16 @@ Resources:
           Ref: RedshiftPortNumber
         SourceSecurityGroupId: !Ref AppSecurityGroup
         Description: App Security Group
+      - CidrIp: !FindInMap
+               - AWSQuickSightIPMap
+               - !Ref 'AWS::Region'
+               - QuickSightIP
+        FromPort:
+          Ref: RedshiftPortNumber
+        ToPort:
+          Ref: RedshiftPortNumber
+        IpProtocol: tcp
+        Description: Amazon QuickSight access 
       VpcId: !GetAtt VPCStack.Outputs.VPCID
   RedshiftDeliveryRole:
     Type: AWS::IAM::Role

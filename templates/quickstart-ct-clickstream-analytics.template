@@ -273,7 +273,7 @@ Parameters:
     Default: m4.large.elasticsearch
   DedicatedMasterCount:
     Type: String
-    Description: The number of dedicated masters to run. Leave the default value for this field, if you don’t want a dedicated master instances.
+    Description: The number of dedicated masters to run. Leave the default value for this field, if you don’t want a dedicated master instance.
     AllowedValues:
       - 0
       - 3
@@ -513,11 +513,11 @@ Parameters:
   RemoteAccessCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
-    Description: A CIDR block that’s allowed external access to the Bastion. We recommend that you use a constrained CIDR range to reduce the potential of inbound attacks from unknown IP addresses (see http://checkip.dyndns.org/)
+    Description: A CIDR block that’s allowed external access to the bastion. We recommend that you use a constrained CIDR range to reduce the potential of inbound attacks from unknown IP addresses (see http://checkip.dyndns.org/)
     Type: String
   AvailabilityZones:
-    Description: List of availability zones to use for the subnets in the VPC. Only
-      two availability zones are used for this deployment, and the logical order of
+    Description: List of Availability Zone to use for the subnets in the VPC. Only
+      two Availability Zone are used for this deployment, and the logical order of
       your selections is preserved.
     Type: List<AWS::EC2::AvailabilityZone::Name>
   S3DestinationPrefix:
@@ -537,7 +537,7 @@ Parameters:
     MinValue: 1
     MaxValue: 128
   EncryptData:
-    Description: Set yes to encrypt the data as it leaves your Amazon Kinesis Analytics application.
+    Description: Set to yes to encrypt the data as it leaves your Amazon Kinesis Data Firehose delivery stream.
     Type: String
     AllowedValues:
       - 'yes'
@@ -961,6 +961,26 @@ Mappings:
       RedshiftInboundTraffic: 13.232.67.32/27
     sa-east-1:
       RedshiftInboundTraffic: 18.228.1.128/27
+  AWSQuickSightIPMap:
+    ap-northeast-1: 
+      QuickSightIP: 13.113.244.32/27
+    ap-southeast-1: 
+      QuickSightIP: 13.229.254.0/27
+    ap-southeast-2: 
+      QuickSightIP: 54.153.249.96/27
+    eu-central-1: 
+      QuickSightIP: 35.158.127.192/27
+    eu-west-1: 
+      QuickSightIP: 52.210.255.224/27
+    eu-west-2: 
+      QuickSightIP: 35.177.218.0/27
+    us-east-1: 
+      QuickSightIP: 52.23.63.224/27
+    us-east-2: 
+      QuickSightIP: 52.15.247.160/27
+    us-west-2: 
+      QuickSightIP: 54.70.204.128/27
+
 Conditions:
   IsMultiNodeCluster:
     Fn::Equals:
@@ -1551,6 +1571,16 @@ Resources:
           Ref: RedshiftPortNumber
         SourceSecurityGroupId: !Ref AppSecurityGroup
         Description: App Security Group
+      - CidrIp: !FindInMap
+               - AWSQuickSightIPMap
+               - !Ref 'AWS::Region'
+               - QuickSightIP
+        FromPort:
+          Ref: RedshiftPortNumber
+        ToPort:
+          Ref: RedshiftPortNumber
+        IpProtocol: tcp
+        Description: Amazon QuickSight access
       VpcId: !Ref VPC
   RedshiftDeliveryRole:
     Type: AWS::IAM::Role

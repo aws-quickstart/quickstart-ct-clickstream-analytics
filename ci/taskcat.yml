@@ -6,36 +6,36 @@ global:
     - us-east-2
     - us-west-2
     - eu-west-1
+    - eu-west-2
     - eu-central-1
     - ap-southeast-1
     - ap-northeast-1
     - ap-southeast-2
-    - ap-northeast-2
   reporting: true
 tests:
   scenario-1:
     regions:
-    #  - us-east-1
-      - us-east-2
-    #  - us-west-2
-    #  - eu-west-1
-    #  - eu-central-1
-    #  - ap-southeast-1
-    #  - ap-northeast-1
-    #  - ap-southeast-2
-    #  - ap-northeast-2
-    template_file: quickstart-ct-clickstream-analytics.template
+  #  - us-east-1
+  #  - us-east-2
+  #  - us-west-2
+  #  - eu-west-1
+  #  - eu-west-2
+  #  - eu-central-1
+  #  - ap-southeast-1
+  #  - ap-northeast-1
+  #  - ap-southeast-2
+    template_file: quickstart-ct-clickstream-analytics.template.yaml
     parameter_input: clickstream-analytics-input-novpc.json
   scenario-2:
     regions:
-    #  - us-east-1
-    #  - us-east-2
-    #  - us-west-2
-    #  - eu-west-1
-      - eu-central-1
-    #  - ap-southeast-1
-    #  - ap-northeast-1
-    #  - ap-southeast-2
-    #  - ap-northeast-2
-    template_file: quickstart-ct-clickstream-analytics-master.template
+  #  - us-east-1
+  #  - us-east-2
+  #  - us-west-2
+  #  - eu-west-1
+    - eu-west-2
+  #  - eu-central-1
+  #  - ap-southeast-1
+  #  - ap-northeast-1
+  #  - ap-southeast-2
+    template_file: quickstart-ct-clickstream-analytics-master.template.yaml
     parameter_input: clickstream-analytics-input-withvpc.json

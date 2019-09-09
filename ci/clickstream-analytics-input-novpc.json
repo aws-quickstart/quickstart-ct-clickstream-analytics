@@ -9,11 +9,11 @@
   },
   {
       "ParameterKey": "KeyPairName",
-      "ParameterValue": "$[alfred_getkeypair]"
+      "ParameterValue": "$[taskcat_getkeypair]"
   },
   {
       "ParameterKey": "AppKeyPairName",
-      "ParameterValue": "$[alfred_getkeypair]"
+      "ParameterValue": "$[taskcat_getkeypair]"
   },
   {
       "ParameterKey": "RemoteAccessCIDR",
@@ -45,7 +45,7 @@
   },
   {
       "ParameterKey": "ESIndex",
-      "ParameterValue": "test"
+      "ParameterValue": "taskcat"
   },
   {
       "ParameterKey": "ESType",
@@ -62,6 +62,10 @@
   {
       "ParameterKey": "RedshiftColumns",
       "ParameterValue": ""
+  },
+  {
+    "ParameterKey": "WebsiteContent",
+    "ParameterValue": ""
   },
   {
     "ParameterKey": "QSS3BucketName",

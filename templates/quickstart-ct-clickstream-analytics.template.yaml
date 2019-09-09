@@ -787,6 +787,26 @@ Mappings:
       QuickSightIP: 52.15.247.160/27
     us-west-2: 
       QuickSightIP: 54.70.204.128/27
+    us-west-1:
+      QuickSightIP: none
+    ca-central-1:
+      QuickSightIP: none
+    eu-west-3:
+      QuickSightIP: none
+    eu-north-1:
+      QuickSightIP: none
+    ap-east-1:
+      QuickSightIP: none
+    ap-northeast-2:
+      QuickSightIP: none
+    ap-northeast-3:
+      QuickSightIP: none
+    ap-south-1:
+      QuickSightIP: none
+    me-south-1:
+      QuickSightIP: none
+    sa-east-1:
+      QuickSightIP: none
 
 Conditions:
   IsMultiNodeCluster:
@@ -807,8 +827,10 @@ Conditions:
     - 'no'    
   HasDedicatedMasterNodes: !Not [!Equals [!Ref DedicatedMasterCount, 0]]
   HasSingleClusterInstance: !Equals [!Ref ESClusterInstanceCount, '1']
-Resources:
+  isQuickSightRegionIP:
+    !Not [!Equals [!FindInMap [ AWSQuickSightIPMap, !Ref "AWS::Region", QuickSightIP ], "none"]]
 
+Resources:
   BastionStack:
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -1378,17 +1400,23 @@ Resources:
           Ref: RedshiftPortNumber
         SourceSecurityGroupId: !Ref AppSecurityGroup
         Description: App Security Group
-      - CidrIp: !FindInMap
-               - AWSQuickSightIPMap
-               - !Ref 'AWS::Region'
-               - QuickSightIP
-        FromPort:
-          Ref: RedshiftPortNumber
-        ToPort:
-          Ref: RedshiftPortNumber
-        IpProtocol: tcp
-        Description: Amazon QuickSight access
       VpcId: !Ref VPC
+  QSingressRule:
+    Type: AWS::EC2::SecurityGroupIngress
+    Condition: isQuickSightRegionIP
+    Properties: 
+      CidrIp: !FindInMap
+              - AWSQuickSightIPMap
+              - !Ref 'AWS::Region'
+              - QuickSightIP
+      Description: Amazon QuickSight access
+      FromPort: 
+        Ref: RedshiftPortNumber
+      ToPort: 
+        Ref: RedshiftPortNumber
+      IpProtocol: tcp
+      GroupId: !GetAtt RSDefaultSG.GroupId
+
   RedshiftDeliveryRole:
     Type: AWS::IAM::Role
     Properties:

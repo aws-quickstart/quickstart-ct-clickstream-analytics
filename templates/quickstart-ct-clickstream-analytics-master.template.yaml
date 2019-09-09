@@ -1,7 +1,7 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
 Description: >-
-  Template creates a new VPC and enables you to deploy a Clickstream Analytics solution that integrates Amazon Kinesis Firehose, Kinesis Analytics, Amazon S3, Amazon Redshift, and Amazon Elasticsearch Service. You will be billed for the AWS resources used, if you create a stack from this template.
+  Template creates a new VPC and enables you to deploy a Clickstream Analytics solution that integrates Amazon Kinesis Firehose, Kinesis Analytics, Amazon S3, Amazon Redshift, and Amazon Elasticsearch Service. You will be billed for the AWS resources used, if you create a stack from this template (qs-1pup06r2q).
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:

@@ -1,7 +1,7 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
 Description: >-
-  Template deploys a Clickstream Analytics Solution that Integrates Amazon Kinesis Firehose, Kinesis Analytics, S3, Redshift and Amazon Elasticsearch in an existing VPC.
+  Template deploys a Clickstream Analytics Solution that Integrates Amazon Kinesis Firehose, Kinesis Analytics, S3, Redshift and Amazon Elasticsearch in an existing VPC (qs-1pup06r2q).
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:

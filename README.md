@@ -15,7 +15,7 @@ This reference architecture is automated by AWS CloudFormation templates that yo
 - Deploying clickstream analytics into a new virtual private cloud (VPC)
 - Deploying clickstream analytics into an existing VPC in your AWS account
 
-![Quick Start architecture for clickstream analytics](https://d1.awsstatic.com/partner-network/QuickStart/datasheets/clickstream-analytics-on-aws-arch.cfd05acf7325a0bc3578031f1f978eb3d60be1ef.png)
+![Quick Start architecture for clickstream analytics](https://d1.awsstatic.com/partner-network/QuickStart/datasheets/clickstream-analytics-arch-on-aws.004cbd3485bc54717102dd58aae31eb14130ed3a.png)
 
 For architectural details, best practices, step-by-step instructions, and customization options, see the [deployment guide](https://fwd.aws/MmPAP).
 

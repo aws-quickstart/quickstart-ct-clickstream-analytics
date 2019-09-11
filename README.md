@@ -8,14 +8,14 @@ This Quick Start automatically builds a clickstream analytics solution on Amazon
 - Ability to publish your website clickstream data to Amazon S3, Amazon Redshift, and Amazon ES.
 - Analysis and visualizations of your clickstream data using Kibana (an open-source tool that comes with Amazon ES) and Amazon QuickSight.
 
-This Quick Start is for users who want to get started with AWS-native components for clickstream analytics on AWS. Once this foundation layer is in place, you can use it to ingest, analyze, and generate business insights from clickstream data that your websites generate. 
+This Quick Start is for users who want to get started with AWS-native components for clickstream analytics on AWS. Once this foundation layer is in place, you can use it to ingest, analyze, and generate business insights from your websites’ clickstream data. 
 
 This reference architecture is automated by AWS CloudFormation templates that you can customize to meet your specific requirements. The AWS CloudFormation templates included with the Quick Start automate the following:
 
 - Deploying clickstream analytics into a new virtual private cloud (VPC)
 - Deploying clickstream analytics into an existing VPC in your AWS account
 
-![Quick Start architecture for clickstream analytics](https://d1.awsstatic.com/partner-network/QuickStart/datasheets/clickstream-analytics-arch-on-aws.004cbd3485bc54717102dd58aae31eb14130ed3a.png)
+![Quick Start architecture for clickstream analytics](https://d1.awsstatic.com/partner-network/QuickStart/datasheets/clickstream-analytics-architecture-on-aws.2b91b20badd7987941402d2aeb6a0c65c57920e3.png)
 
 For architectural details, best practices, step-by-step instructions, and customization options, see the [deployment guide](https://fwd.aws/MmPAP).
 

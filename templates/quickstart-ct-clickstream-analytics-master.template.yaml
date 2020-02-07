@@ -1174,11 +1174,11 @@ Resources:
           - - !Ref 'S3DestinationPrefix'
             - /
         RoleARN: !GetAtt 'FIrehoseToS3Role.Arn'
-  esroleforsl:
-    Type: "AWS::IAM::ServiceLinkedRole"
-    Properties:
-      AWSServiceName: "es.amazonaws.com"
-      Description: "ElasticsearchServiceLinkCreate"
+  # esroleforsl:
+  #   Type: "AWS::IAM::ServiceLinkedRole"
+  #   Properties:
+  #     AWSServiceName: "es.amazonaws.com"
+  #     Description: "ElasticsearchServiceLinkCreate"
   ESDomain:
     Type: AWS::Elasticsearch::Domain
     Properties:

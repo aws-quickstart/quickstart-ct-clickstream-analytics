@@ -816,6 +816,7 @@ Mappings:
       QuickSightIP: none
 
 Conditions:
+  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
   IsMultiNodeCluster:
     Fn::Equals:
     - Ref: ClusterType

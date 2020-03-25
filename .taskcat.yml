@@ -29,7 +29,7 @@ project:
     KeyPairName: "$[taskcat_getkeypair]"
     RemoteAccessCIDR:  "10.0.0.0/16"
     AppKeyPairName: "$[taskcat_getkeypair]"
-    OperatorEMail: override
+    OperatorEMail: user@example.com
     ESDomainName: "$[taskcat_random-string]"
     ESIndex: "taskcat"
     ESType: "doc"

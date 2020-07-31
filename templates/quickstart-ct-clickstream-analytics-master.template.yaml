@@ -362,8 +362,11 @@ Parameters:
     ConstraintDescription: Must be a valid email address.
   BastionAMIOS:
     AllowedValues:
-      - Amazon-Linux-HVM
-    Default: Amazon-Linux-HVM
+    - Amazon-Linux2-HVM
+    - CentOS-7-HVM
+    - Ubuntu-Server-20.04-LTS-HVM
+    - SUSE-SLES-15-HVM
+  Default: Amazon-Linux2-HVMß
     Description: The Amazon Linux distribution for the Amazon Machine Image (AMI) to be used for the bastion instances.
     Type: String
   BastionInstanceType:
